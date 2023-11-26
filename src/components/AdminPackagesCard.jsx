@@ -1,29 +1,24 @@
 /* eslint-disable react/jsx-key */
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import Destination1 from "../assets/Destination1.png";
-import Destination2 from "../assets/Destination2.png";
-import Destination3 from "../assets/Destination3.png";
-import Destination4 from "../assets/Destination4.png";
-import Destination5 from "../assets/Destination5.png";
-import Destination6 from "../assets/Destination6.png";
-import IconButton from "@material-ui/core/IconButton";
-import info1 from "../assets/info1.png";
-import info2 from "../assets/info2.png";
-import info3 from "../assets/info3.png";
-import { Link } from "react-router-dom";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import ModeEditIcon from "@mui/icons-material/ModeEdit";
-import GroupAddIcon from "@mui/icons-material/GroupAdd";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import CardActions from "@material-ui/core/CardActions";
-import Tooltip from "@mui/material/Tooltip";
+import { AiFillDelete } from "react-icons/ai";
+import { Button, Card } from "flowbite-react";
+import { RiEdit2Fill } from "react-icons/ri";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Tooltip from "@mui/material/Tooltip";
+import { Link } from "react-router-dom";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { MdEdit } from "react-icons/md";
 export default function AdminPackagesCard() {
   const [data, setData] = useState([]);
+  const [isReadMore, setIsReadMore] = useState(true);
+  const toggleReadMore = () => {
+    setIsReadMore(!isReadMore);
+  };
   const [reload, setReload] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
@@ -70,63 +65,43 @@ export default function AdminPackagesCard() {
   const [active, setActive] = useState(1);
   return (
     <Section id="AdminPackagesCard">
-      <div className="title">
+      {/* <div className="title">
         <h2>Packages</h2>
-      </div>
-      {/* <div className="packages">
-        <ul>
-          {packages.map((pkg, index) => {
-            return (
-              <li
-                className={active === index + 1 ? "active" : ""}
-                onClick={() => setActive(index + 1)}
-              >
-                {pkg}
-              </li>
-            );
-          })}
-        </ul>
       </div> */}
-      <div className="destinations">
+      <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 mx-5 p-3 bg-white rounded-lg shadow-lg border-2">
         {data.map((destination) => {
           return (
-            <Link
-              style={{ textDecoration: "none", color: "black" }}
-              // to={`/packages/${destination.title}`}
-              // className="blog__title"
-            >
-              <div style={{ height: "100%" }} className="destination">
-                <img src={destination.images[0].image} alt="" />
-                <h3>{destination.title}</h3>
-                <p
-                  style={{
-                    width: "300px",
-                    height: "100px",
-                    overflow: "hidden",
-                  }}
-                  className="section__description mt-3"
-                >
-                  {destination.description.length > 150
-                    ? destination.description.substr(0, 150)
-                    : destination.description}
+            <>
+              <Card className="shadow-lg rounded-lg lg:w-90 border-2 h-auto w-auto">
+                <div className="icon flex justify-center">
+                  <img
+                    src={destination.images[0].image}
+                    alt=""
+                    style={{
+                      width: "100%",
+                      borderRadius: "10px",
+                      height: "100%",
+                    }}
+                  />
+                </div>
+                <p className="text-center text-md font-semibold mb-0">
+                  {destination.title}
                 </p>
-                {/* <p>{destination.description}</p> */}
+                <p className="text-justify w-full h-24 overflow-auto font-normal text-zinc-700 text-sm mt-0">
+                  {destination.description}
+                </p>
 
-                <div className="info">
-                  <div className="services">Price</div>
-                  <h4>{destination.price}</h4>
+                <div className=" flex justify-between flex-row">
+                  <div>
+                    <span className="font-bold text-md">
+                      Available Ticket:{" "}
+                    </span>
+                    <span className="text-md">{destination.totalCount}</span>
+                  </div>
+                  <p className="font-bold text-md">{"$" + destination.price}</p>
                 </div>
-                <div className="distance">
-                  <span>Available Ticket</span>
-                  <span>{destination.totalCount}</span>
-                </div>
-
-                <CardActions style={{ justifyContent: "space-around" }}>
+                <div className="flex justify-around bg-white text-zinc-800 hover:text-white transition-colors duration-100 text-md font-medium text-center rounded-lg bg-primary-700 w-full">
                   <Tooltip title="Edit">
-                    {/* navigate("/admin/editPackageDetails", {
-                      state: destination,
-                    }) */}
-
                     <IconButton
                       onClick={() =>
                         navigate("/admin/editPackageDetails", {
@@ -134,6 +109,7 @@ export default function AdminPackagesCard() {
                         })
                       }
                       aria-label="Edit"
+                      className="h-5 w-5"
                     >
                       <Link
                         to={{
@@ -142,7 +118,7 @@ export default function AdminPackagesCard() {
                         }}
                         style={{ textDecoration: "none", color: "grey" }}
                       >
-                        <ModeEditIcon />
+                        <RiEdit2Fill style={{ color: "black" }} />
                       </Link>
                     </IconButton>
                   </Tooltip>
@@ -152,8 +128,9 @@ export default function AdminPackagesCard() {
                         updateVisibility(destination._id);
                       }}
                       aria-label="Hide"
+                      className="h-5 w-5"
                     >
-                      <VisibilityOffIcon />
+                      <VisibilityOffIcon style={{ color: "black" }} />
                     </IconButton>
                   </Tooltip>
                   <Tooltip title="Delete">
@@ -162,13 +139,14 @@ export default function AdminPackagesCard() {
                         removePackage(destination._id);
                       }}
                       aria-label="Delete"
+                      className="h-5 w-5"
                     >
                       <DeleteForeverIcon style={{ color: "red" }} />
                     </IconButton>
                   </Tooltip>
-                </CardActions>
-              </div>
-            </Link>
+                </div>
+              </Card>
+            </>
           );
         })}
       </div>
@@ -200,9 +178,9 @@ const Section = styled.section`
   }
   .destinations {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 3rem;
-    padding: 0 3rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6rem;
+    padding: 0 6rem;
     .destination {
       padding: 1rem;
       display: flex;

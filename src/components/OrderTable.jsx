@@ -87,66 +87,77 @@ const headCells = [
     numeric: false,
     disablePadding: true,
     label: "No",
+    textAlign: "center",
   },
   {
     id: "orderType",
     numeric: true,
     disablePadding: false,
     label: "Order Type",
+    textAlign: "center",
   },
   {
     id: "tourName",
     numeric: true,
     disablePadding: false,
     label: "Tour Name",
+    textAlign: "center",
   },
   {
     id: "fullName",
     numeric: true,
     disablePadding: false,
     label: "Full Name",
+    textAlign: "center",
   },
   {
     id: "payment",
     numeric: true,
     disablePadding: false,
     label: "Payment",
+    textAlign: "center",
   },
   {
     id: "email",
     numeric: true,
     disablePadding: false,
     label: "Email",
+    textAlign: "center",
   },
   {
     id: "phone",
     numeric: true,
     disablePadding: false,
     label: "Phone",
+    textAlign: "center",
   },
   {
     id: "totalPersons",
     numeric: true,
     disablePadding: false,
     label: "Total Persons",
+    textAlign: "center",
   },
   {
     id: "tourDate",
     numeric: true,
     disablePadding: false,
     label: "Tour Date",
+    textAlign: "center",
   },
   {
     id: "pickupTime",
     numeric: true,
     disablePadding: false,
     label: "Pickup Time",
+    textAlign: "center",
   },
   {
     id: "pickupLocation",
     numeric: true,
     disablePadding: false,
     label: "Pickup Loaction",
+    textAlign: "center",
   },
 ];
 
@@ -180,9 +191,10 @@ function EnhancedTableHead(props) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? "right" : "left"}
+            align={"center"}
             padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
+            style={{ fontWeight: "bold" }}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
@@ -256,11 +268,12 @@ function EnhancedTableToolbar(props) {
           </IconButton>
         </Tooltip>
       ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
+        ""
+        // <Tooltip title="Filter list">
+        //   <IconButton>
+        //     <FilterListIcon />
+        //   </IconButton>
+        // </Tooltip>
       )}
     </Toolbar>
   );
@@ -371,8 +384,8 @@ export default function EnhancedTable() {
   );
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Paper sx={{ width: "100%", mb: 2 }}>
+    <Box sx={{ width: "100%", padding: 2 }}>
+      <Paper sx={{ width: "100%" }}>
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table
@@ -421,16 +434,16 @@ export default function EnhancedTable() {
                     >
                       {row.id}
                     </TableCell>
-                    <TableCell align="right">{row.orderType}</TableCell>
-                    <TableCell align="right">{row.tourName}</TableCell>
-                    <TableCell align="right">{row.fullName}</TableCell>
-                    <TableCell align="right">{row.payment}</TableCell>
-                    <TableCell align="right">{row.email}</TableCell>
-                    <TableCell align="right">{row.phone}</TableCell>
-                    <TableCell align="right">{row.totalPersons}</TableCell>
-                    <TableCell align="right">{row.tourDate}</TableCell>
-                    <TableCell align="right">{row.pickupTime}</TableCell>
-                    <TableCell align="right">{row.pickupLocation}</TableCell>
+                    <TableCell align="center">{row.orderType}</TableCell>
+                    <TableCell align="center">{row.tourName}</TableCell>
+                    <TableCell align="center">{row.fullName}</TableCell>
+                    <TableCell align="center">{row.payment}</TableCell>
+                    <TableCell align="center">{row.email}</TableCell>
+                    <TableCell align="center">{row.phone}</TableCell>
+                    <TableCell align="center">{row.totalPersons}</TableCell>
+                    <TableCell align="center">{row.tourDate}</TableCell>
+                    <TableCell align="center">{row.pickupTime}</TableCell>
+                    <TableCell align="center">{row.pickupLocation}</TableCell>
                   </TableRow>
                 );
               })}
@@ -456,10 +469,10 @@ export default function EnhancedTable() {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      <FormControlLabel
+      {/* <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
-      />
+      /> */}
     </Box>
   );
 }

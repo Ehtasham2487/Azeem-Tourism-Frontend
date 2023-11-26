@@ -13,17 +13,18 @@ import Badge from "@mui/material/Badge";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
+import { FcEditImage } from "react-icons/fc";
 import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import MainListItems from "./listItems";
+import MainListItems from "./ListItems";
 import AdminHeader from "./AdminHeader";
 import AdminInactiveTicketsCard from "./AdminInactiveTicketsCard";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { useNavigate } from "react-router-dom";
 const ThemeColor = createTheme({
-  palette: { primary: { main: "#00C0D9", contrastText: "#fff" } },
+  palette: { primary: { main: "#27272a", contrastText: "#fff" } },
 });
 function Copyright(props) {
   return (
@@ -34,10 +35,7 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        AQ Innovations
-      </Link>{" "}
-      {new Date().getFullYear()}
+      <Link color="inherit">Azeem Tourism</Link> {new Date().getFullYear()}
       {"."}
     </Typography>
   );
@@ -175,6 +173,7 @@ export default function Dashboard() {
         >
           <Toolbar />
           <AdminHeader title="Manage Inactive Packages" />
+          <Divider style={{ height: "2px" }} />
           <AdminInactiveTicketsCard />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Copyright sx={{ pt: 4 }} />

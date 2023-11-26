@@ -1,26 +1,9 @@
 import React from "react";
 import { Fragment } from "react";
 import { Routes, Route } from "react-router-dom";
-
-document.addEventListener("mousemove", (e) => {
-  let bubles = document.createElement("bubles");
-  let x = e.pageX;
-  let y = e.pageY;
-  bubles.style.left = x + "px";
-  bubles.style.top = y + "px";
-  let size = Math.random() * 10;
-  bubles.style.width = 1 + size + "px";
-  bubles.style.height = 1 + size + "px";
-
-  document.body.appendChild(bubles);
-  setTimeout(function () {
-    bubles.remove();
-  }, 500);
-});
-
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Routers from "./routers/routers";
+import Routers from "./routers/Routers";
 import ManageOrders from "./components/Order";
 import AddPackages from "./components/AddPackages";
 import ManageInactivePackages from "./components/ManageInactivePackages";
@@ -71,13 +54,9 @@ function App() {
             element={<ManageInactiveTickets />}
           />
 
-
           <Route path="/admin/addtours" element={<AddTours />} />
           <Route path="/admin/managetours" element={<ManageTours />} />
-          <Route
-            path="/admin/editTourDetails"
-            element={<EditTourDetails />}
-          />
+          <Route path="/admin/editTourDetails" element={<EditTourDetails />} />
           <Route
             path="/admin/manageinactivetours"
             element={<ManageInactiveTours />}

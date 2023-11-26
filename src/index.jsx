@@ -1,15 +1,16 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import { Routes, Route, Navigate, BrowserRouter } from "react-router-dom";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "remixicon/fonts/remixicon.css";
 import axios from "axios";
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
-axios.defaults.baseURL = "http://localhost:8080/api";
+
+axios.defaults.baseURL = "https://smart-travel-b06756646a16.herokuapp.com/api";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
   <React.StrictMode>
     <BrowserRouter>
