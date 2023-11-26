@@ -114,7 +114,7 @@ export default function EditForm({
                   component="span"
                 >
                   <Button
-                    style={{ width: "500px" }}
+                    style={{ width: "350px" }}
                     variant="contained"
                     endIcon={<CollectionsIcon />}
                   >
@@ -153,6 +153,7 @@ export default function EditForm({
                 <Button
                   onClick={useOldImages}
                   variant="contained"
+                  style={{ marginTop: 8 }}
                   endIcon={<CloudUploadOutlinedIcon />}
                 >
                   Use Old Images
@@ -174,7 +175,7 @@ export default function EditForm({
                   component="span"
                 >
                   <Button
-                    style={{ width: "500px" }}
+                    style={{ width: "350px" }}
                     variant="contained"
                     endIcon={<CollectionsIcon />}
                   >
@@ -211,6 +212,7 @@ export default function EditForm({
               <div style={{ paddingLeft: "9px" }}>
                 <Button
                   onClick={useOldVideo}
+                  style={{ marginTop: 8 }}
                   variant="contained"
                   endIcon={<CloudUploadOutlinedIcon />}
                 >

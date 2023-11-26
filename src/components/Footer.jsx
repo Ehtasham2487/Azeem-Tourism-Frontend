@@ -1,19 +1,18 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { BsLinkedin, BsFacebook } from "react-icons/bs";
-import { AiFillInstagram } from "react-icons/ai";
+import React from "react";
+import { BsLinkedin, BsFacebook, BsTiktok, BsInstagram } from "react-icons/bs";
+import { TbBrandThreads } from "react-icons/tb";
+import { AiOutlinePhone } from "react-icons/ai";
+import { FaHome, FaPhoneAlt } from "react-icons/fa";
+import { HiOutlineMail } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
-export default function Footer() {
+const Footer = () => {
   const navigate = useNavigate();
   return (
-    <FooterContainer>
-      <p style={{ cursor: "pointer", color: "black", textDecoration: "none" }}>
-        <span>Copyright &copy; 2023 AQ Innovations. All rights reserved</span>
-      </p>
-      <ul className="links">
+    <div className="bg-zinc-800 text-white p-6 flex-col justify-center items-center">
+      <ul className="gap-x-5 lg:gap-x-10 flex justify-center flex-row flex-wrap ">
         <li>
           <p
-            style={{ cursor: "pointer" }}
+            className="font-semibold cursor-pointer  hover:text-yellow-300 transition ease-in-out duration-500  "
             onClick={() => {
               navigate("/");
             }}
@@ -23,37 +22,37 @@ export default function Footer() {
         </li>
         <li>
           <p
-            style={{ cursor: "pointer" }}
-            onClick={() => {
-              navigate("/about");
-            }}
-          >
-            About
-          </p>
-        </li>
-        <li>
-          <p
-            style={{ cursor: "pointer" }}
+            className="font-semibold cursor-pointer hover:text-yellow-300 transition ease-in-out duration-500  "
             onClick={() => {
               navigate("/packages");
             }}
           >
-            Packages
+            Holiday Packages
           </p>
         </li>
         <li>
           <p
-            style={{ cursor: "pointer" }}
+            className="font-semibold cursor-pointer hover:text-yellow-300 transition ease-in-out duration-500  "
             onClick={() => {
-              navigate("/reviews");
+              navigate("/tours");
             }}
           >
-            Reviews
+            Tours
           </p>
         </li>
         <li>
           <p
-            style={{ cursor: "pointer" }}
+            className="font-semibold cursor-pointer hover:text-yellow-300 transition ease-in-out duration-500  "
+            onClick={() => {
+              navigate("/tickets");
+            }}
+          >
+            Tickets
+          </p>
+        </li>
+        <li>
+          <p
+            className="font-semibold cursor-pointer hover:text-yellow-300 transition ease-in-out duration-500  "
             onClick={() => {
               navigate("/contact");
             }}
@@ -63,32 +62,24 @@ export default function Footer() {
         </li>
         <li>
           <p
-            style={{ cursor: "pointer" }}
+            className="font-semibold cursor-pointer hover:text-yellow-300 transition ease-in-out duration-500  "
             onClick={() => {
-              navigate("/admin/signin");
+              navigate("/about");
             }}
           >
-            Admin Login
+            About
           </p>
         </li>
       </ul>
-      <ul className="social__links">
+      <ul className="social__links flex space-x-10 lg:space-x-20 mt-4 justify-center mb-4 ">
         <li>
           <a
             href="https://www.facebook.com/profile.php?id=61552420340278"
             target="_blank"
             rel="noreferrer"
+            className="text-white "
           >
             <BsFacebook />
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://instagram.com/azeemtourism?igshid=NGVhN2U2NjQ0Yg=="
-            target="_blank"
-            rel="noreferrer"
-          >
-            <AiFillInstagram />
           </a>
         </li>
         <li>
@@ -96,52 +87,70 @@ export default function Footer() {
             href="https://www.linkedin.com/in/azeem-tourism-60b4b5295/"
             target="_blank"
             rel="noreferrer"
+            className="text-white"
           >
             <BsLinkedin />
           </a>
         </li>
+        <li>
+          <a
+            href="https://www.tiktok.com/@azeem.tourism?_t=8gKyynJGcvH&_r=1"
+            target="_blank"
+            rel="noreferrer"
+            className="text-white"
+          >
+            <BsTiktok />
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://www.threads.net/@azeemtourism"
+            target="_blank"
+            rel="noreferrer"
+            className="text-white"
+          >
+            <TbBrandThreads />
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://instagram.com/azeemtourism?igshid=NGVhN2U2NjQ0Yg=="
+            target="_blank"
+            rel="noreferrer"
+            className="text-white"
+          >
+            <BsInstagram />
+          </a>
+        </li>
+        <li>
+          <a
+            href="mailto:azeemtourism@gmail.com"
+            target="_blank"
+            rel="noreferrer"
+            className="text-white"
+          >
+            <HiOutlineMail />
+          </a>
+        </li>
       </ul>
-    </FooterContainer>
+      <ul className="flex flex-col sm:flex-row sm:space-x-4 justify-center">
+        <li className="flex items-center space-x-2">
+          <FaPhoneAlt className="w-4 h-4" />
+          <p className="text-md font-light pt-3">+971522760013</p>
+        </li>
+        <li className="flex items-center space-x-2">
+          <FaHome className="w-5 h-5" />
+          <p className="text-md font-light pt-3">
+            CBD 11, Shop # 02, International City, Dubai, United Arab Emirates
+          </p>
+        </li>
+      </ul>
+
+      <p className="mb-4 text-center">
+        <span className="cursor-pointer font-light">Azeem Tourism</span>
+      </p>
+    </div>
   );
-}
+};
 
-const FooterContainer = styled.footer`
-  display: flex;
-  justify-content: space-evenly;
-  background-color: #00a3e0;
-  border-radius: 0.5rem;
-  padding: 2.5rem;
-
-  ul {
-    display: flex;
-    list-style-type: none;
-    gap: 2rem;
-    li {
-      p {
-        text-decoration: none;
-        color: black;
-        transition: 0.3s ease-in-out;
-        &:hover {
-          color: orange;
-        }
-      }
-      svg {
-        font-size: 1.3rem;
-        transition: 0.3s ease-in-out;
-        &:hover {
-          color: orange;
-        }
-      }
-    }
-  }
-  @media screen and (min-width: 280px) and (max-width: 1024px) {
-    flex-direction: column;
-    gap: 2rem;
-    ul {
-      flex-direction: column;
-    }
-    .social__links {
-      flex-direction: row;
-    }
-  }
-`;
+export default Footer;

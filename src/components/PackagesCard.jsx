@@ -1,216 +1,144 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-key */
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import Destination1 from "../assets/Destination1.png";
-import Destination2 from "../assets/Destination2.png";
-import Destination3 from "../assets/Destination3.png";
-import Destination4 from "../assets/Destination4.png";
-import Destination5 from "../assets/Destination5.png";
-import Destination6 from "../assets/Destination6.png";
-import info1 from "../assets/info1.png";
-import info2 from "../assets/info2.png";
-import info3 from "../assets/info3.png";
-import { Link } from "react-router-dom";
 import axios from "axios";
-export default function Recommend() {
+import { Button, Card } from "flowbite-react";
+import { useNavigate } from "react-router-dom";
+import { Spinner } from "flowbite-react";
+import SpinnerGif from "../assets/Spinner.gif";
+export default function PackagesCard({ searchTerm }) {
   const [data, setData] = useState([]);
   const [reload, setReload] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
   useEffect(() => {
     const URL =
       "https://smart-travel-b06756646a16.herokuapp.com/api/packages/get";
     axios
       .get(URL)
       .then((response) => {
-        const filtered = response.data.filter(
+        let filtered = response.data.filter(
           (packages) => packages.active === true,
         );
+        if (searchTerm) {
+          filtered = filtered.filter((item) =>
+            item.title.toLowerCase().includes(searchTerm.toLowerCase()),
+          );
+        }
+
         setData(filtered);
-        // window.location.reload()
+        setIsLoading(false);
       })
       .catch((error) => {
-        // event.preventDefault();
+        setIsLoading(true);
+        console.log(error.message);
       });
-  }, [reload]);
-  // const data = [
-  //   {
-  //     image: Destination1,
-  //     title: "Singapore",
-  //     subTitle: "Singapore, officialy thr Republic of Singapore, is a",
-  //     cost: "38,800",
-  //     duration: 6,
-  //   },
-  //   {
-  //     image: Destination2,
-  //     title: "Thailand",
-  //     subTitle: "Thailand is a Southeast Asia country. It's known for",
-  //     cost: "54,200",
-  //     duration: 10,
-  //   },
-  //   {
-  //     image: Destination3,
-  //     title: "Paris",
-  //     subTitle: "Paris, France's capital, is a major European city and a",
-  //     cost: "45,500",
-  //     duration: 156,
-  //   },
-  //   {
-  //     image: Destination4,
-  //     title: "New Zealand",
-  //     subTitle: "New Zealand is an island country in the",
-  //     cost: "24,100",
-  //     duration: 178,
-  //   },
-  //   {
-  //     image: Destination5,
-  //     title: "Bora Bora",
-  //     subTitle: "Bora Bora is a small South Pacific island northwest of",
-  //     cost: "95,400",
-  //     duration: 5,
-  //   },
-  //   {
-  //     image: Destination6,
-  //     title: "London",
-  //     subTitle: "London, the capital of England and the United",
-  //     cost: "38,800",
-  //     duration: 550,
-  //   },
-  // ];
+  }, [reload, searchTerm]);
 
-  const packages = [
-    "The Weekend Break",
-    "The Package Holiday",
-    "The Group Tour",
-    "Long Term Slow Travel",
-  ];
-
-  const [active, setActive] = useState(1);
-  return (
-    <Section id="recommend">
-      <div className="title">
-        <h2 className="mb-[35px] text-4xl text-zinc-700">Packages</h2>
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <img
+          src={SpinnerGif}
+          alt="Loading..."
+          className="animate-spin-slow w-35 h-35"
+        />
       </div>
-      <div className="destinations">
+    );
+  }
+  return (
+    <div className="animate-fade-down">
+      <div className="title">
+        <h2 className="py-5 text-3xl lg:py-10 lg:text-4xl font-bold font-inter text-zinc-800 text-center">
+          Holiday Packages
+        </h2>
+      </div>
+      <div className=" flex lg:justify-center flex-col lg:flex-row space-y-10 lg:space-y-0 lg:space-x-10 p-10 rounded-lg">
         {data.map((destination) => {
           return (
-            <Link
-              style={{ textDecoration: "none", color: "black" }}
-              to={`/packages/${destination.title}`}
-              className="blog__title"
+            <Card
+              className="transform hover:scale-110 shadow-lg rounded-lg lg:w-96 border-2  h-auto"
+              imgSrc={destination.images[0].image}
             >
-              <div className="destination">
-                <img src={destination.images[0].image} alt="" />
-                <h3>{destination.title}</h3>
-                <p
-                  style={{
-                    width: "300px",
-                    height: "100px",
-                    overflow: "hidden",
-                  }}
-                  className="section__description mt-3"
-                >
-                  {destination.description.length > 150
-                    ? destination.description.substr(0, 150)
-                    : destination.description}
+              <h5>{destination.title}</h5>
+
+              <p className="text-left font-normal text-zinc-700 text-clip text-sm  overflow-hidden h-20">
+                {destination.description}
+              </p>
+              <div className="info flex justify-between ">
+                <div className="flex mt-2">
+                  {/* <p className=" font-semibold mr-1">
+                    Price
+                  </p> */}
+                </div>
+                <p className="font-bold text-2xl mt-1 mr-auto">
+                  {"$" + destination.price}
                 </p>
-                <div className="info">
-                  <div className="services">Price</div>
-                  <h4>{destination.price}</h4>
-                </div>
-                <div className="distance">
-                  <span className="services">Available Ticket</span>
-                  <span>{destination.totalCount}</span>
-                </div>
+
+                <Rating />
               </div>
-            </Link>
+
+              <Button
+                color="gray"
+                onClick={() => navigate(`/packages/${destination.title}`)}
+                className="shadow-sm  bg-zinc-100  text-zinc-800 hover:bg-zinc-800 hover:text-white transition-colors duration-100  text-sm font-medium text-center rounded-lg bg-primary-700 w-full"
+              >
+                Book Now
+              </Button>
+            </Card>
           );
         })}
       </div>
-    </Section>
+    </div>
   );
 }
 
-const Section = styled.section`
-  padding: 2rem 0;
-  .title {
-    text-align: center;
-  }
-  .packages {
-    display: flex;
-    justify-content: center;
-    margin: 2rem 0;
-    ul {
-      display: flex;
-      list-style-type: none;
-      width: max-content;
-      li {
-        padding: 1rem 2rem;
-        border-bottom: 0.1rem solid black;
-      }
-      .active {
-        border-bottom: 0.5rem solid #8338ec;
-      }
-    }
-  }
-  .destinations {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 3rem;
-    padding: 0 3rem;
-    .destination {
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      background-color: #8338ec14;
-      border-radius: 1rem;
-      transition: 0.3s ease-in-out;
-      &:hover {
-        transform: translateX(0.4rem) translateY(-1rem);
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-      }
-      img {
-        width: 100%;
-      }
-      .info {
-        display: flex;
-        align-items: center;
-        .services {
-          display: flex;
-          gap: 0.3rem;
-          img {
-            border-radius: 1rem;
-            background-color: black;
-            width: 2rem;
-            /* padding: 1rem; */
-            padding: 0.3rem 0.4rem;
-          }
-        }
-        display: flex;
-        justify-content: space-between;
-      }
-      .distance {
-        display: flex;
-        justify-content: space-between;
-        color: black;
-      }
-    }
-  }
-  @media screen and (min-width: 280px) and (max-width: 768px) {
-    .packages {
-      ul {
-        li {
-          padding: 0 0.5rem;
-          font-size: 2vh;
-          padding-bottom: 1rem;
-        }
-        .active {
-          border-bottom-width: 0.3rem;
-        }
-      }
-    }
-    .destinations {
-      grid-template-columns: 1fr;
-      padding: 0;
-    }
-  }
-`;
+export const Rating = () => {
+  return (
+    <div className="mb-0 mt-0 flex items-center cursor-pointer">
+      <svg
+        className="h-5 w-5 text-yellow-300"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+      </svg>
+      <svg
+        className="h-5 w-5 text-yellow-300"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+      </svg>
+      <svg
+        className="h-5 w-5 text-yellow-300"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+      </svg>
+      <svg
+        className="h-5 w-5 text-yellow-300"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+      </svg>
+      <svg
+        className="h-5 w-5 text-yellow-300"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+      </svg>
+      <span className="ml-3 mr-2 rounded bg-cyan-100 px-2.5 py-0.5 text-xs font-semibold text-cyan-800 dark:bg-cyan-200 dark:text-cyan-800">
+        5.0
+      </span>
+    </div>
+  );
+};

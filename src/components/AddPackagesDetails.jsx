@@ -3,17 +3,13 @@ import CssBaseline from "@mui/material/CssBaseline";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import Toolbar from "@mui/material/Toolbar";
 import Paper from "@mui/material/Paper";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
-import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import AddressForm from "./AddressForm";
-import PaymentForm from "./PaymentForm";
-import Review from "./Review";
 import axios from "axios";
 const steps = ["Package Details", "Review Your Package"];
 
@@ -190,7 +186,10 @@ export default function Checkout() {
                   {error}
                 </Typography>
                 {activeStep !== 0 && (
-                  <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
+                  <Button
+                    onClick={handleBack}
+                    sx={{ mt: 3, ml: 1, bg: "#27272a" }}
+                  >
                     Back
                   </Button>
                 )}
@@ -202,7 +201,7 @@ export default function Checkout() {
                       postMyPackage();
                       handleNext();
                     }}
-                    sx={{ mt: 3, ml: 1 }}
+                    sx={{ mt: 3, ml: 1, bg: "#27272a" }}
                   >
                     {" "}
                     Create Package
@@ -211,7 +210,7 @@ export default function Checkout() {
                   <Button
                     variant="contained"
                     onClick={handleNext}
-                    sx={{ mt: 3, ml: 1 }}
+                    sx={{ mt: 3, ml: 1, bg: "#27272a" }}
                   >
                     {" "}
                     Next

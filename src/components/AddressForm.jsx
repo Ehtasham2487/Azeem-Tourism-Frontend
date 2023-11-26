@@ -1,16 +1,12 @@
 /* eslint-disable react/prop-types */
+import { IconButton } from "@mui/material";
+import TextField from "@mui/material/TextField";
+import Stack from "@mui/material/Stack";
 import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Stack from "@mui/material/Stack";
-import IconButton from "@mui/material/IconButton";
 import CollectionsIcon from "@mui/icons-material/Collections";
 import Button from "@mui/material/Button";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
-import SendIcon from "@mui/icons-material/Send";
 export default function AddressForm({
   title,
   setZip,
@@ -99,8 +95,9 @@ export default function AddressForm({
                   component="span"
                 >
                   <Button
-                    style={{ width: "500px" }}
+                    style={{ width: "350px" }}
                     variant="contained"
+                    sx={{ p: 1, bg: "#27272a" }}
                     endIcon={<CollectionsIcon />}
                   >
                     Upload Images
@@ -147,8 +144,9 @@ export default function AddressForm({
                   component="span"
                 >
                   <Button
-                    style={{ width: "500px" }}
+                    style={{ width: "350px" }}
                     variant="contained"
+                    sx={{ p: 1, bg: "#27272a" }}
                     endIcon={<CollectionsIcon />}
                   >
                     Upload Videos

@@ -17,13 +17,13 @@ import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import MainListItems from "./listItems";
+import MainListItems from "./ListItems";
 import AdminHeader from "./AdminHeader";
 import AdminPackagesCard from "./AdminPackagesCard";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { useNavigate } from "react-router-dom";
 const ThemeColor = createTheme({
-  palette: { primary: { main: "#00C0D9", contrastText: "#fff" } },
+  palette: { primary: { main: "#27272a", contrastText: "#fff" } },
 });
 function Copyright(props) {
   return (
@@ -34,10 +34,7 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        AQ Innovations
-      </Link>{" "}
-      {new Date().getFullYear()}
+      <Link color="inherit">Azeem Tourism</Link> {new Date().getFullYear()}
       {"."}
     </Typography>
   );
@@ -89,8 +86,6 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
 export default function Dashboard() {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
@@ -105,7 +100,7 @@ export default function Dashboard() {
         <AppBar position="absolute" open={open}>
           <Toolbar
             sx={{
-              pr: "24px", // keep right padding when drawer closed
+              pr: "24px",
             }}
           >
             <IconButton
@@ -175,6 +170,7 @@ export default function Dashboard() {
         >
           <Toolbar />
           <AdminHeader title="Manage Packages" />
+          <Divider style={{ height: "2px" }} />
           <AdminPackagesCard />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Copyright sx={{ pt: 4 }} />

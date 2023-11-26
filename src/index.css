@@ -1,6 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -11,16 +9,53 @@
   box-sizing: border-box;
 }
 
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
   margin: 1rem 2rem;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Roboto",
+    "Oxygen",
+    "Ubuntu",
+    "Cantarell",
+    "Fira Sans",
+    "Droid Sans",
+    "Helvetica Neue",
     sans-serif;
+  /* Add 'Inter' at the start */
 }
+
+@layer utilities {
+  .debug {
+    border: 2px solid red;
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+}
+
+/* 
 .swiper-button-next,
 .swiper-button-prev {
   text-rendering: auto;
@@ -35,7 +70,7 @@ body {
   font-size: 18px;
   background: #fff;
 
-  /* Center slide text vertically */
+  Center slide text vertically
   display: flex;
   justify-content: center;
   align-items: center;
@@ -47,7 +82,7 @@ body {
   height: 100%;
   object-fit: cover;
 }
-bubles {
+.bubles {
   border-radius: 100%;
   position: absolute;
   pointer-events: none;
@@ -57,9 +92,9 @@ bubles {
     -10px -10px 30px #31c8a2;
   transform: translate(-50%, -50%);
   animation: colorgen 1s infinite;
-}
+} */
 
-@keyframes colorgen {
+/* @keyframes colorgen {
   0% {
     opacity: 1;
     filter: hue-rotate(0deg);
@@ -68,12 +103,12 @@ bubles {
     opacity: 0;
     filter: hue-rotate(270deg);
   }
-}
-
+} */
+/* 
 ::-webkit-scrollbar {
   width: 0.6rem;
   background-color: #14213d;
 }
 ::-webkit-scrollbar-thumb {
   background-color: #4539e6;
-}
+} */

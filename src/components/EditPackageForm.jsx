@@ -114,8 +114,9 @@ export default function EditForm({
                   component="span"
                 >
                   <Button
-                    style={{ width: "500px" }}
+                    style={{ width: "350px", backgroundColor: "#27272a" }}
                     variant="contained"
+                    sx={{ p: 1, backgroundColor: "#27272a" }}
                     endIcon={<CollectionsIcon />}
                   >
                     Upload Images
@@ -153,6 +154,7 @@ export default function EditForm({
                 <Button
                   onClick={useOldImages}
                   variant="contained"
+                  style={{ marginTop: 8, backgroundColor: "#27272a" }}
                   endIcon={<CloudUploadOutlinedIcon />}
                 >
                   Use Old Images
@@ -174,8 +176,9 @@ export default function EditForm({
                   component="span"
                 >
                   <Button
-                    style={{ width: "500px" }}
+                    style={{ width: "350px", backgroundColor: "#27272a" }}
                     variant="contained"
+                    sx={{ p: 1, bg: "#27272a" }}
                     endIcon={<CollectionsIcon />}
                   >
                     Upload Videos
@@ -212,6 +215,7 @@ export default function EditForm({
                 <Button
                   onClick={useOldVideo}
                   variant="contained"
+                  style={{ marginTop: 8, backgroundColor: "#27272a" }}
                   endIcon={<CloudUploadOutlinedIcon />}
                 >
                   Use Old Videos

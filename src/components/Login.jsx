@@ -14,17 +14,12 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import FilledInput from "@mui/material/FilledInput";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
-import FormControl from "@mui/material/FormControl";
-// import { motion } from "framer-motion"
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 const ThemeColor = createTheme({
-  palette: { primary: { main: "#00C0D9", contrastText: "#fff" } },
+  palette: { primary: { main: "#27272a", contrastText: "#fff" } },
 });
 function Copyright(props) {
   return (
@@ -35,10 +30,7 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        AQ Innovations
-      </Link>{" "}
-      {new Date().getFullYear()}
+      <Link color="inherit">Azeem Tourism</Link> {new Date().getFullYear()}
       {"."}
     </Typography>
   );

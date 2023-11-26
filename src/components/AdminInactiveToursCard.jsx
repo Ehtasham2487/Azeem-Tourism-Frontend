@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-key */
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { RiEdit2Fill } from "react-icons/ri";
 import Destination1 from "../assets/Destination1.png";
 import Destination2 from "../assets/Destination2.png";
 import Destination3 from "../assets/Destination3.png";
@@ -8,6 +9,7 @@ import Destination4 from "../assets/Destination4.png";
 import Destination5 from "../assets/Destination5.png";
 import Destination6 from "../assets/Destination6.png";
 import IconButton from "@material-ui/core/IconButton";
+import { RiDeleteBin5Line } from "react-icons/ri";
 import info1 from "../assets/info1.png";
 import info2 from "../assets/info2.png";
 import info3 from "../assets/info3.png";
@@ -20,6 +22,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import CardActions from "@material-ui/core/CardActions";
 import Tooltip from "@mui/material/Tooltip";
+import { Card } from "flowbite-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 export default function AdminPackagesCard() {
@@ -120,9 +123,9 @@ export default function AdminPackagesCard() {
   const [active, setActive] = useState(1);
   return (
     <Section id="AdminPackagesCard">
-      <div className="title">
-        <h2>Packages</h2>
-      </div>
+      {/* <div className="title">
+        <h2>In Active Tours</h2>
+      </div> */}
       {/* <div className="packages">
         <ul>
           {packages.map((pkg, index) => {
@@ -137,82 +140,151 @@ export default function AdminPackagesCard() {
           })}
         </ul>
       </div> */}
-      <div className="destinations">
+      <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 mx-5 p-3 bg-white rounded-lg shadow-lg border-2">
         {data.map((destination) => {
           return (
-            <Link
-              style={{ textDecoration: "none", color: "black" }}
-              // to={`/packages/${destination.title}`}
-              className="blog__title"
-            >
-              <div className="destination">
-                <img src={destination.images[0].image} alt="" />
-                <h3>{destination.title}</h3>
-                <p
+            <Card className="shadow-lg rounded-lg lg:w-90 border-2 h-auto w-auto">
+              <div className="icon flex justify-center">
+                <img
+                  src={destination.images[0].image}
+                  alt=""
                   style={{
-                    width: "300px",
-                    height: "100px",
-                    overflow: "hidden",
+                    width: "100%",
+                    borderRadius: "10px",
+                    height: "100%",
                   }}
-                  className="section__description mt-3"
-                >
-                  {destination.description.length > 150
-                    ? destination.description.substr(0, 150)
-                    : destination.description}
-                </p>
-                <div className="info">
-                  <div className="services">Price</div>
-                  <h4>{destination.cost}</h4>
-                </div>
-                <div className="distance">
-                  <span>Available Ticket</span>
-                  <span>{destination.totalCount}</span>
-                </div>
-
-                <CardActions style={{ justifyContent: "space-around" }}>
-                  <Tooltip title="Edit">
-                    <IconButton
-                      onClick={() =>
-                        navigate("/admin/editTourDetails", {
-                          state: destination,
-                        })
-                      }
-                      aria-label="Edit"
-                    >
-                      <Link
-                        to={{
-                          pathname: "/admin/editTourDetails",
-                          state: "destination",
-                        }}
-                        style={{ textDecoration: "none", color: "grey" }}
-                      >
-                        <ModeEditIcon />
-                      </Link>
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="Unhide">
-                    <IconButton
-                      onClick={() => {
-                        updateVisibility(destination._id);
-                      }}
-                      aria-label="Unhide"
-                    >
-                      <VisibilityIcon />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="Delete">
-                    <IconButton
-                      onClick={() => {
-                        removeTour(destination._id);
-                      }}
-                      aria-label="Delete"
-                    >
-                      <DeleteForeverIcon style={{ color: "red" }} />
-                    </IconButton>
-                  </Tooltip>
-                </CardActions>
+                />
               </div>
-            </Link>
+              <p className="text-center text-md font-semibold mb-0">
+                {destination.title}
+              </p>
+              <p className="text-justify w-full h-24 overflow-auto font-normal text-zinc-700 text-sm mt-0">
+                {destination.description}
+              </p>
+
+              <div className=" flex justify-between flex-row">
+                <div>
+                  <span className="font-bold text-md">Available Ticket: </span>
+                  <span className="text-md">{destination.totalCount}</span>
+                </div>
+                <p className="font-bold text-md">{"$" + destination.price}</p>
+              </div>
+              <div className="flex justify-around bg-white text-zinc-800 hover:text-white transition-colors duration-100 text-md font-medium text-center rounded-lg bg-primary-700 w-full">
+                <Tooltip title="Edit">
+                  <IconButton
+                    onClick={() =>
+                      navigate("/admin/editTicketDetails", {
+                        state: destination,
+                      })
+                    }
+                    aria-label="Edit"
+                  >
+                    <Link
+                      to={{
+                        pathname: "/admin/editTicketDetails",
+                        state: "destination",
+                      }}
+                      style={{ textDecoration: "none", color: "grey" }}
+                    >
+                      <RiEdit2Fill style={{ color: "black" }} />
+                    </Link>
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title="Unhide">
+                  <IconButton
+                    onClick={() => {
+                      updateVisibility(destination._id);
+                    }}
+                    aria-label="Unhide"
+                  >
+                    <VisibilityIcon style={{ color: "black" }} />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title="Delete">
+                  <IconButton
+                    onClick={() => {
+                      removeTickets(destination._id);
+                    }}
+                    aria-label="Delete"
+                  >
+                    <DeleteForeverIcon style={{ color: "red" }} />
+                  </IconButton>
+                </Tooltip>
+              </div>
+            </Card>
+            // <Link
+            //   style={{ textDecoration: "none", color: "black" }}
+            //   // to={`/packages/${destination.title}`}
+            //   className="blog__title"
+            // >
+            //   <div className="destination">
+            //     <img src={destination.images[0].image} alt="" />
+            //     <h3>{destination.title}</h3>
+            //     <p
+            //       style={{
+            //         width: "300px",
+            //         height: "100px",
+            //         overflow: "hidden",
+            //       }}
+            //       className="section__description mt-3"
+            //     >
+            //       {destination.description.length > 150
+            //         ? destination.description.substr(0, 150)
+            //         : destination.description}
+            //     </p>
+            //     <div className="info">
+            //       <div className="services">Price</div>
+            //       <h4>{destination.cost}</h4>
+            //     </div>
+            //     <div className="distance">
+            //       <span>Available Ticket</span>
+            //       <span>{destination.totalCount}</span>
+            //     </div>
+
+            //     <CardActions style={{ justifyContent: "space-around" }}>
+            //       <Tooltip title="Edit">
+            //         <IconButton
+            //           onClick={() =>
+            //             navigate("/admin/editTourDetails", {
+            //               state: destination,
+            //             })
+            //           }
+            //           aria-label="Edit"
+            //         >
+            //           <Link
+            //             to={{
+            //               pathname: "/admin/editTourDetails",
+            //               state: "destination",
+            //             }}
+            //             style={{ textDecoration: "none", color: "grey" }}
+            //           >
+            //             <RiEdit2Fill style={{ color: "black" }} />
+            //           </Link>
+            //         </IconButton>
+            //       </Tooltip>
+            //       <Tooltip title="Unhide">
+            //         <IconButton
+            //           onClick={() => {
+            //             updateVisibility(destination._id);
+            //           }}
+            //           aria-label="Unhide"
+            //         >
+            //           <VisibilityIcon style={{ color: "black" }} />
+            //         </IconButton>
+            //       </Tooltip>
+            //       <Tooltip title="Delete">
+            //         <IconButton
+            //           onClick={() => {
+            //             removeTour(destination._id);
+            //           }}
+            //           aria-label="Delete"
+            //         >
+            //           <DeleteForeverIcon style={{ color: "red" }} />
+            //         </IconButton>
+            //       </Tooltip>
+            //     </CardActions>
+            //   </div>
+            // </Link>
           );
         })}
       </div>

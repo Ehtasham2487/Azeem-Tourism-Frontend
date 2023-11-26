@@ -1,14 +1,10 @@
 import React from "react";
 import { MdOutlineCancel } from "react-icons/md";
-
 import { UserProfileButton } from "../components/UserProfileButton";
 import { userProfileData } from "../data/dummy";
-import { useStateContext } from "../contexts/Provider";
 import avatar from "../assets/avatarImage.jpg";
 
 const UserProfile = () => {
-  //   const { currentColor } = useStateContext();
-
   return (
     <div className="nav-item absolute right-1 top-16 bg-white dark:bg-[#42464D] p-8 rounded-lg w-96">
       <div className="flex justify-between items-center">
@@ -68,13 +64,7 @@ const UserProfile = () => {
         ))}
       </div>
       <div className="mt-5">
-        <Button
-          color="white"
-          bgColor={"#03C9D7"}
-          text="Logout"
-          borderRadius="10px"
-          width="full"
-        />
+        <button className="text-white bg-blue-500 rounded-lg w-full" />
       </div>
     </div>
   );

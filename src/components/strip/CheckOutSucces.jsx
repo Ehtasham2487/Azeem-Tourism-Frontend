@@ -5,7 +5,7 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import { Card } from "flowbite-react";
 const CheckoutSuccess = () => {
   const navigate = useNavigate();
   const orderDetails = JSON.parse(localStorage.getItem("orderDetails"));
@@ -30,11 +30,8 @@ const CheckoutSuccess = () => {
       .post(URL, data)
       .then((response) => {
         updateMyPackage();
-        // window.location.reload()
       })
-      .catch((error) => {
-        // event.preventDefault();
-      });
+      .catch((error) => {});
   };
   const updateMyPackage = () => {
     const data = {
@@ -46,61 +43,59 @@ const CheckoutSuccess = () => {
       URL = `https://smart-travel-b06756646a16.herokuapp.com/api/packages/update/${orderDetails.packageObject._id}`;
     } else if (orderDetails.orderType === "ticket") {
       URL = `https://smart-travel-b06756646a16.herokuapp.com/api/tickets/update/${orderDetails.packageObject._id}`;
-    }
-    else if (orderDetails.orderType === "tour") {
+    } else if (orderDetails.orderType === "tour") {
       URL = `https://smart-travel-b06756646a16.herokuapp.com/api/tours/update/${orderDetails.packageObject._id}`;
     }
     axios
       .post(URL, data)
-      .then((response) => {
-        // window.location.reload()
-      })
-      .catch((error) => {
-        // event.preventDefault();
-      });
+      .then((response) => {})
+      .catch((error) => {});
   };
 
   return (
     <Container>
-      <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
-        <Paper
-          variant="outlined"
-          sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
+      <Card className="transform hover:scale-110 shadow-lg rounded-lg lg:w-96 border-2 font-inter h-auto justify-center">
+        <h5 className="text-center font-semibold">Checkout Successful</h5>
+        <p className="text-lg text-justify ">
+          Thank you for choosing Azeem Tourism! 🌟 Your order might take some
+          time to process. In case of any inquiries, contact the support at{" "}
+          <a
+            href="mailto:azeemtourism@gmail.com"
+            className="text-primary-600 font-normal"
+          >
+            <strong>support</strong>
+          </a>{" "}
+          Or you can 📞 WhatsApp us on{" "}
+          <a
+            href="https://api.whatsapp.com/send?phone=97152760013"
+            className="text-primary-600 font-normal"
+          >
+            <strong>+97152760013</strong>
+          </a>
+          .
+        </p>
+        <Button
+          onClick={() => {
+            handleCreate();
+            navigate("/");
+          }}
+          sx={{
+            fontFamily: "Inter",
+            backgroundColor: "#4CAF50",
+            color: "white",
+            borderRadius: "lg",
+            fontSize: "lg",
+            p: 1.2,
+            transition: "all 0.3s ease-in-out",
+            "&:hover": {
+              backgroundColor: "#388E3C",
+              color: "white",
+            },
+          }}
         >
-          <React.Fragment>
-            <h2>Checkout Successful</h2>
-            <p>Thank you for choosing Azeem Tourism! 🌟</p>
-            <p>Your order might take some time to process.</p>
-            {/* <p>Check your order status at your profile after about 10mins.</p> */}
-            <p>
-              Incase of any inqueries contact the support at{" "}
-              <a href="mailto:azeemtourism@gmail.com">
-                <strong>support</strong>
-              </a>
-            </p>
-            <p>
-              Or you can 📞 WhatsApp us on{" "}
-              <a href="https://api.whatsapp.com/send?phone=97152760013">
-                <strong>+97152760013</strong>
-              </a>
-            </p>
-            <Button
-              variant="contained"
-              onClick={() => {
-                handleCreate();
-                navigate("/");
-              }}
-              sx={{ mt: 3, ml: 1 }}
-            >
-              {" "}
-              Confirm Order
-            </Button>
-            {/* <Typography variant="h5" gutterBottom>
-                Your Package Has Been Created
-              </Typography> */}
-          </React.Fragment>
-        </Paper>
-      </Container>
+          Confirm Order
+        </Button>
+      </Card>
     </Container>
   );
 };
@@ -109,7 +104,7 @@ export default CheckoutSuccess;
 
 const Container = styled.div`
   min-height: 80vh;
-  max-width: 800px;
+  max-width: 850px;
   width: 100%;
   margin: auto;
   display: flex;

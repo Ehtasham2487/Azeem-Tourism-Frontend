@@ -1,225 +1,196 @@
 import React, { useRef } from "react";
-import { Link } from "react-router-dom";
-import { Container, Row, Col, Form, FormGroup, Input } from "reactstrap";
 import emailjs from "@emailjs/browser";
-import "../styles/contact.css";
-import styled from "styled-components";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-const socialLinks = [
-  {
-    url: "#",
-    icon: "ri-facebook-line",
-  },
-  {
-    url: "#",
-    icon: "ri-instagram-line",
-  },
-  {
-    url: "#",
-    icon: "ri-linkedin-line",
-  },
-  {
-    url: "#",
-    icon: "ri-twitter-line",
-  },
-];
-
+import { Alert, Snackbar } from "@mui/material";
+import { Button } from "flowbite-react";
+import { BsLinkedin, BsFacebook, BsTiktok, BsInstagram } from "react-icons/bs";
+import { TbBrandThreads } from "react-icons/tb";
+import { HiOutlineMail } from "react-icons/hi";
 const Contact = () => {
+  const [open, setOpen] = React.useState(false);
+  const [message, setMessage] = React.useState("");
   const form = useRef();
   const sendEmail = (e) => {
     e.preventDefault();
-    if (
-      document.getElementById("user_name").value == "" ||
-      document.getElementById("user_email").value == "" ||
-      document.getElementById("user_phone").value == "" ||
-      document.getElementById("message").value == ""
-    ) {
-      toast("Invalid Input");
-    } else {
-      emailjs
-        .sendForm(
-          "smart_travel_AQ_service",
-          "template_20bqta2",
-          form.current,
-          "jS8uEaWSumnC5iAJR",
-        )
-        .then(
-          (result) => {
-            document.getElementById("user_name").value = "";
-            document.getElementById("user_email").value = "";
-            document.getElementById("user_phone").value = "";
-            document.getElementById("message").value = "";
-            toast("Message Sent");
-          },
-          (error) => {
-            toast("Message Not Sent");
-          },
-        );
-    }
+    console.log(e.target);
+
+    emailjs
+      .sendForm(
+        "service_1k2n7nm",
+        "template_7irigj4",
+        form.current,
+        "x22LetCmQE_F-xPPn",
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          form.current.reset();
+          setMessage("Email sent successfully");
+          setOpen(true);
+        },
+        (error) => {
+          console.log(error.text);
+        },
+      );
   };
+
   return (
-    <div>
-      {/* <CommonSection title="Contact" /> */}
-      <section>
-        <Container>
-          <Row>
-            <Col lg="7" md="7">
-              <h6 className="fw-bold mb-4 text-orange-300">Get In Touch</h6>
-              <div>
-                <ToastContainer />
-              </div>
-              <StyledContactForm>
-                <form ref={form} onSubmit={sendEmail}>
-                  <FormGroup className="contact__form">
-                    <label>Name</label>
-                    <input type="text" name="user_name" id="user_name" />
-                  </FormGroup>
-                  <FormGroup className="contact__form">
-                    <label>Email</label>
-                    <input type="email" name="user_email" id="user_email" />
-                  </FormGroup>
-                  <FormGroup className="contact__form">
-                    <label>Phone</label>
-                    <input type="number" name="user_phone" id="user_phone" />
-                  </FormGroup>
-                  <label>Message</label>
-                  <textarea
-                    name="message"
-                    rows="5"
-                    id="message"
-                    placeholder="Message"
-                    className="textarea"
-                  />
-                  <input className=" contact__btn" type="submit" value="Send" />
-                </form>
-              </StyledContactForm>
-              {/* <Form ref={form} onSubmit={sendEmail}>
-                <FormGroup className="contact__form">
-                  <Input placeholder="Your Name" type="text" />
-                </FormGroup>
-                <FormGroup className="contact__form">
-                  <Input placeholder="Email" type="email" />
-                </FormGroup>
-                <FormGroup className="contact__form">
-                  <textarea
-                    rows="5"
-                    placeholder="Message"
-                    className="textarea"
-                  ></textarea>
-                </FormGroup>
+    <section className="bg-white dark:bg-gray-900 animate-fade-down">
+      <div className="py-8 lg:py-10 px-4 mx-auto max-w-screen-md">
+        <h2 className="text-3xl lg:text-4xl font-bold text-center font-inter text-zinc-800 dark:text-gray-100 mb-4">
+          Contact Us
+        </h2>
+        <p className="mb-8 lg:mb-16 font-normal text-center text-gray-800 dark:text-gray-400 sm:text-xl">
+          Questions? Need assistance? Ready for your next adventure? 🌍 Contact
+          Azeem Tourism using the form below! Our dedicated team is here to help
+          make your travel dreams a reality. ✈️🌟 #AzeemTourism #ExploreWithUs
+        </p>
+        <div className="w-full md:w-1/2 flex flex-col ">
+          <div className="flex space-x-4">
+            <ul className="social__links flex space-x-10 lg:space-x-20 justify-center py-4 pl-20 text-2xl">
+              <li>
+                <a
+                  href="https://www.facebook.com/profile.php?id=61552420340278"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-black"
+                >
+                  <BsFacebook />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/in/azeem-tourism-60b4b5295/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-black"
+                >
+                  <BsLinkedin />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.tiktok.com/@azeem.tourism?_t=8gKyynJGcvH&_r=1"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-black"
+                >
+                  <BsTiktok />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.threads.net/@azeemtourism"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-black"
+                >
+                  <TbBrandThreads />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://instagram.com/azeemtourism?igshid=NGVhN2U2NjQ0Yg=="
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-black"
+                >
+                  <BsInstagram />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:azeemtourism@gmail.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-black"
+                >
+                  <HiOutlineMail />
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
 
-                <button className=" contact__btn" type="submit">
-                  Send Message
-                </button>
-              </Form> */}
-            </Col>
-
-            <Col lg="5" md="5">
-              <div className="contact__info">
-                <h6 className="fw-bold">Contact Information</h6>
-                <h6 className="fs-6 mb-0">Location:</h6>
-                <p className="section__description mb-0">
-                  Nene Park Diamond Way Station Road, Naya Pakistan
-                </p>
-                <div className=" d-flex align-items-center gap-2">
-                  <h6 className="fs-6 mb-0">Phone:</h6>
-                  <p className="section__description mb-0">
-                    <a
-                      className="section__description mb-0"
-                      href="tel:090078601"
-                    >
-                      {" "}
-                      090078601
-                    </a>
-                  </p>
-                </div>
-
-                <div className=" d-flex align-items-center gap-2">
-                  <h6 className="mb-0 fs-6">Email:</h6>
-                  <p className="section__description mb-0">
-                    <a
-                      className="section__description mb-0"
-                      href="mailto: smarttravel@gmail.com"
-                    >
-                      smarttravel@gmail.com
-                    </a>
-                  </p>
-                </div>
-
-                <h6 className="fw-bold mt-4">Follow Us</h6>
-
-                <div className=" d-flex align-items-center gap-4 mt-3">
-                  {socialLinks.map((item, index) => (
-                    <Link
-                      to={item.url}
-                      key={index}
-                      className="social__link-icon"
-                    >
-                      <i class={item.icon}></i>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-      </section>
-    </div>
+        <form
+          ref={form}
+          onSubmit={(e) => {
+            sendEmail(e);
+          }}
+          className="space-y-8 flex flex-col"
+        >
+          <div>
+            <label
+              htmlFor="email"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            >
+              Your email
+            </label>
+            <input
+              type="email"
+              id="email"
+              className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
+              placeholder="your email here"
+              required
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="subject"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            >
+              Subject
+            </label>
+            <input
+              type="text"
+              id="subject"
+              className="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
+              placeholder="Let us know how we can help you"
+              required
+            />
+          </div>
+          <div className="sm:col-span-2">
+            <label
+              htmlFor="message"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+            >
+              Your message
+            </label>
+            <textarea
+              id="message"
+              rows="6"
+              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+              placeholder="Leave a comment..."
+            ></textarea>
+          </div>
+          <div className="w-full md:w-56 self-center">
+            <Button
+              color="gray"
+              onClick={(e) => {
+                sendEmail(e);
+              }}
+              className="shadow-sm bg-zinc-100 text-zinc-800 hover:bg-zinc-800 hover:text-white transition-colors duration-100 text-sm font-medium text-center rounded-lg bg-primary-700 w-full"
+            >
+              Send message
+            </Button>
+          </div>
+        </form>
+        <Snackbar
+          open={open}
+          autoHideDuration={2000}
+          onClose={() => setOpen(false)}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        >
+          <Alert
+            onClose={() => setOpen(false)}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            {message}
+          </Alert>
+        </Snackbar>
+      </div>
+    </section>
   );
 };
 
 export default Contact;
-
-const StyledContactForm = styled.div`
-  width: 400px;
-
-  form {
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    width: 100%;
-    font-size: 16px;
-
-    input {
-      width: 100%;
-      height: 35px;
-      padding: 7px;
-      outline: none;
-      border-radius: 5px;
-      border: 1px solid rgb(220, 220, 220);
-
-      &:focus {
-        border: 2px solid rgba(0, 206, 158, 1);
-      }
-    }
-
-    textarea {
-      max-width: 100%;
-      min-width: 100%;
-      width: 100%;
-      max-height: 100px;
-      min-height: 100px;
-      padding: 7px;
-      outline: none;
-      border-radius: 5px;
-      border: 1px solid rgb(220, 220, 220);
-
-      &:focus {
-        border: 2px solid rgba(0, 206, 158, 1);
-      }
-    }
-
-    label {
-      margin-top: 1rem;
-    }
-
-    input[type="submit"] {
-      margin-top: 2rem;
-      cursor: pointer;
-      background: rgb(249, 105, 14);
-      color: white;
-      border: none;
-    }
-  }
-`;

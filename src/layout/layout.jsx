@@ -55,13 +55,9 @@ const Layout = () => {
             element={<ManageInactiveTickets />}
           />
 
-
           <Route path="/admin/addtours" element={<AddTours />} />
           <Route path="/admin/managetours" element={<ManageTours />} />
-          <Route
-            path="/admin/editTourDetails"
-            element={<EditTourDetails />}
-          />
+          <Route path="/admin/editTourDetails" element={<EditTourDetails />} />
           <Route
             path="/admin/manageinactivetours"
             element={<ManageInactiveTours />}
@@ -71,6 +67,5 @@ const Layout = () => {
     );
   }
 };
-
 
 export default Layout;

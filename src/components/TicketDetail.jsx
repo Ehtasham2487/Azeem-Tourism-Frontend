@@ -1,481 +1,297 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-key */
-import React, { useState, useEffect, useRef } from "react";
-import { Container, Row, Col, Form, FormGroup, Input } from "reactstrap";
+
+import React, { useState, useEffect } from "react";
+import { Button } from "flowbite-react";
 import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
-import "../styles/packages-details.css";
-import Destination1 from "../assets/Destination1.png";
-import Destination2 from "../assets/Destination2.png";
-import Destination3 from "../assets/Destination3.png";
-import Destination4 from "../assets/Destination4.png";
-import Destination5 from "../assets/Destination5.png";
-import Destination6 from "../assets/Destination6.png";
-import CheckoutForm from "./strip/CheckOutForm";
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
-import { ReactWhatsapp } from "react-whatsapp";
 import { FloatingWhatsApp } from "react-floating-whatsapp";
-import PayButton from "./strip/PayButton";
+import { IoPricetagsOutline } from "react-icons/io5";
 import { Carousel } from "react-carousel-minimal";
-import axios from "axios";
-import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
-import DiscountOutlinedIcon from "@mui/icons-material/DiscountOutlined";
-import "swiper/css";
-import "swiper/css/effect-coverflow";
-import "swiper/css/pagination";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Mousewheel, Keyboard } from "swiper/modules";
-import { Carousel1 } from "react-responsive-carousel";
-import Button from "@mui/material/Button";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Formik, Form, useField } from "formik";
+import { Card } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
-import "../styles/contact.css";
-import styled from "styled-components";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-// import "../styles/blog-details.css";
-const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
+import * as Yup from "yup";
+import axios from "axios";
+
 const PackageDetails = () => {
-  const form = useRef();
   const navigate = useNavigate();
   const { slug } = useParams();
   const [packagesData, setPackagesData] = useState([]);
   const [packageObject, setPackageObject] = useState();
-  const [reload, setReload] = useState(false);
-  var imagelist = [];
+
   useEffect(() => {
     const URL =
       "https://smart-travel-b06756646a16.herokuapp.com/api/tickets/get";
     axios
       .get(URL)
       .then((response) => {
-        console.log(response.data);
         const filtered = response.data.filter(
           (packages) => packages.active === true,
         );
         setPackagesData(filtered);
-        setPackageObject(filtered.find((tickets) => tickets.title === slug));
-        filtered
-          .find((tickets) => tickets.title === slug)
-          .images.map((items) => {});
-        // window.location.reload()
+        setPackageObject(filtered.find((tickets) => tickets._id === slug));
+        filtered.find((tickets) => tickets._id === slug);
       })
       .catch((error) => {
-        // event.preventDefault();
+        console.log(error.message);
       });
   }, []);
-
-  const data = [
-    {
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/GoldenGateBridge-001.jpg/1200px-GoldenGateBridge-001.jpg",
-      caption: "San Francisco",
-    },
-    {
-      image:
-        "https://cdn.britannica.com/s:800x450,c:crop/35/204435-138-2F2B745A/Time-lapse-hyper-lapse-Isle-Skye-Scotland.jpg",
-      caption: "Scotland",
-    },
-    {
-      image:
-        "https://static2.tripoto.com/media/filter/tst/img/735873/TripDocument/1537686560_1537686557954.jpg",
-      caption: "Darjeeling",
-    },
-    {
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Palace_of_Fine_Arts_%2816794p%29.jpg/1200px-Palace_of_Fine_Arts_%2816794p%29.jpg",
-      caption: "San Francisco",
-    },
-    {
-      image:
-        "https://i.natgeofe.com/n/f7732389-a045-402c-bf39-cb4eda39e786/scotland_travel_4x3.jpg",
-      caption: "Scotland",
-    },
-    {
-      image:
-        "https://www.tusktravel.com/blog/wp-content/uploads/2020/07/Best-Time-to-Visit-Darjeeling-for-Honeymoon.jpg",
-      caption: "Darjeeling",
-    },
-    {
-      image:
-        "https://www.omm.com/~/media/images/site/locations/san_francisco_780x520px.ashx",
-      caption: "San Francisco",
-    },
-    {
-      image:
-        "https://images.ctfassets.net/bth3mlrehms2/6Ypj2Qd3m3jQk6ygmpsNAM/61d2f8cb9f939beed918971b9bc59bcd/Scotland.jpg?w=750&h=422&fl=progressive&q=50&fm=jpg",
-      caption: "Scotland",
-    },
-    {
-      image:
-        "https://www.oyorooms.com/travel-guide/wp-content/uploads/2019/02/summer-7.jpg",
-      caption: "Darjeeling",
-    },
-  ];
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const [clientSecret, setClientSecret] = useState("");
-
-  const appearance = {
-    theme: "stripe",
+  const validationSchema = Yup.object({
+    full_name: Yup.string()
+      .matches(
+        /^[a-zA-Z0-9_ ]*$/,
+        "Username can only contain letters, numbers, underscores, and spaces",
+      )
+      .required("Required"),
+    total_persons: Yup.number()
+      .min(1, "Total persons cannot be less than 1")
+      .required("Required"),
+    date_of_tour: Yup.date().required("Required"),
+    pickup_time: Yup.string().required("Required"),
+    user_email: Yup.string()
+      .email("Invalid email address")
+      .required("Required"),
+    user_phone: Yup.string().required("Required"),
+    pickup_location: Yup.string().required("Required"),
+  });
+  const initialValues = {
+    full_name: "",
+    total_persons: 1,
+    date_of_tour: "",
+    pickup_time: "",
+    user_email: "",
+    user_phone: "",
+    pickup_location: "",
   };
-  const options = {
-    clientSecret,
-    appearance,
-  };
-  const captionStyle = {
-    fontSize: "2em",
-    fontWeight: "bold",
-  };
-  const slideNumberStyle = {
-    fontSize: "20px",
-    fontWeight: "bold",
-  };
-
-  const sendEmail = (e) => {
-    e.preventDefault();
-    if (
-      document.getElementById("user_name").value == "" ||
-      document.getElementById("user_email").value == "" ||
-      document.getElementById("user_phone").value == "" ||
-      document.getElementById("message").value == ""
-    ) {
-      toast("Invalid Input");
-    } else {
-      emailjs
-        .sendForm(
-          "smart_travel_AQ_service",
-          "template_20bqta2",
-          form.current,
-          "jS8uEaWSumnC5iAJR",
-        )
-        .then(
-          (result) => {
-            document.getElementById("user_name").value = "";
-            document.getElementById("user_email").value = "";
-            document.getElementById("user_phone").value = "";
-            document.getElementById("message").value = "";
-            toast("Message Sent");
-          },
-          (error) => {
-            toast("Message Not Sent");
-          },
+  const handleCheckout = async (values) => {
+    const {
+      full_name,
+      total_persons,
+      date_of_tour,
+      pickup_time,
+      user_email,
+      user_phone,
+      pickup_location,
+    } = values;
+    axios
+      .post(
+        `https://smart-travel-b06756646a16.herokuapp.com/api/payments/intent`,
+        {
+          packageCharges: packageObject.price * total_persons,
+        },
+      )
+      .then((response) => {
+        localStorage.setItem(
+          "orderDetails",
+          JSON.stringify({
+            fullname: full_name,
+            email: user_email,
+            phone: user_phone,
+            pickuplocation: pickup_location,
+            totalpersons: total_persons,
+            dateoftour: date_of_tour,
+            pickuptime: pickup_time,
+            totalprice: packageObject.price * total_persons,
+            packageObject: packageObject,
+            stripeSessionId: response.data.sessionID,
+            orderType: "ticket",
+          }),
         );
-    }
+        if (response.data) {
+          window.location.href = response.data.sessionURL;
+        }
+      })
+      .catch((err) => console.log(err.message));
   };
-  const handleCheckout = (e) => {
-    e.preventDefault();
-    if (
-      document.getElementById("user_name").value == "" ||
-      document.getElementById("user_email").value == "" ||
-      document.getElementById("user_phone").value == "" ||
-      document.getElementById("pickup_location").value == "" ||
-      document.getElementById("total_persons").value == "" ||
-      document.getElementById("date_of_tour").value == "" ||
-      document.getElementById("pickup-time").value == ""
-    ) {
-      toast("Invalid Input");
-    } else {
-      axios
-        .post(
-          `https://smart-travel-b06756646a16.herokuapp.com/api/payments/intent`,
-          {
-            packageCharges:
-              packageObject.price *
-              document.getElementById("total_persons").value,
-          },
-          // {authorization:}
-        )
-        .then((response) => {
-          localStorage.setItem(
-            "orderDetails",
-            JSON.stringify({
-              fullname: document.getElementById("user_name").value,
-              email: document.getElementById("user_email").value,
-              phone: document.getElementById("user_phone").value,
-              pickuplocation: document.getElementById("pickup_location").value,
-              totalpersons: document.getElementById("total_persons").value,
-              dateoftour: document.getElementById("date_of_tour").value,
-              pickuptime: document.getElementById("pickup-time").value,
-              totalprice:
-                packageObject.price *
-                document.getElementById("total_persons").value,
-              packageObject: packageObject,
-              stripeSessionId: response.data.sessionID,
-              orderType: "ticket",
-            }),
-          );
+  const InputTextField = ({ label, ...props }) => {
+    const [field, meta] = useField(props);
+    return (
+      <div className="mb-4 flex-col">
+        <label className="block text-zinc-800 text-sm font-semibold mb-2 font-inter">
+          {label}
+        </label>
+        <input
+          {...field}
+          {...props}
+          className={`appearance-none border ${
+            meta.touched && meta.error ? "border-red-500" : "border-gray-300"
+          } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+        />
+        {meta.touched && meta.error ? (
+          <p className="text-red-500 text-sm font-semibold ">
+            {"*"}
+            {meta.error}
+          </p>
+        ) : null}
+      </div>
+    );
+  };
 
-          if (response.data) {
-            window.location.href = response.data.sessionURL;
-          }
-        })
-        .catch((err) => console.log(err.message));
-    }
-  };
   return (
-    <section>
-      <Container>
-        <Row>
-          {packageObject && (
-            <Col lg="7" md="7">
-              <div className="blog__details">
-                <Carousel
-                  data={packageObject.images}
-                  time={4000}
-                  width="850px"
-                  height="500px"
-                  captionStyle={captionStyle}
-                  radius="10px"
-                  slideNumber={true}
-                  slideNumberStyle={slideNumberStyle}
-                  captionPosition="bottom"
-                  automatic={true}
-                  dots={true}
-                  pauseIconColor="white"
-                  pauseIconSize="40px"
-                  slideBackgroundColor="darkgrey"
-                  slideImageFit="cover"
-                  thumbnails={true}
-                  thumbnailWidth="100px"
-                  style={{
-                    textAlign: "center",
-                    maxWidth: "850px",
-                    maxHeight: "500px",
-                    margin: "40px auto",
-                  }}
-                />
-                <div style={{ paddingTop: "100px" }}>
-                  <Swiper
-                    cssMode={true}
-                    navigation={true}
-                    pagination={true}
-                    mousewheel={true}
-                    keyboard={true}
-                    modules={[Navigation, Pagination, Mousewheel, Keyboard]}
-                    className="mySwiper"
-                  >
-                    {packageObject.videos.map((item) => {
-                      return (
-                        <SwiperSlide>
-                          <video
-                            src={item.video}
-                            width="200"
-                            height="200"
-                            controls
-                          ></video>
-                        </SwiperSlide>
-                      );
-                    })}
-                  </Swiper>
+    <>
+      <div className="flex flex-col lg:flex-row justify-center px-5 lg:px-0">
+        {packageObject && (
+          <div className="w-full  lg:w-5/6 lg:justify-center  ">
+            <h2 className="py-5 text-2xl lg:py-10 lg:text-3xl font-bold font-inter text-zinc-800 text-center">
+              {packageObject.title}
+            </h2>
+            <div className="flex flex-col lg:flex-row lg:gap-x-10 justify-center">
+              <div className="w-full justify-center ">
+                <div className="flex justify-center">
+                  <Carousel
+                    data={packageObject.images}
+                    time={3000}
+                    radius="8px"
+                    slideNumber={true}
+                    captionPosition="bottom"
+                    automatic={true}
+                    dots={true}
+                    pauseIconColor="white"
+                    slideBackgroundColor="white"
+                    slideImageFit="cover"
+                    thumbnails={true}
+                  />
                 </div>
-
-                {/* <Carousel1>
-                  {packageObject.videos.map((item) => {
-                    return (
-
-                      <div >
-
-                        <video src={item.image} width="200" height="200" controls >
-
-                        </video>
-
-                      </div>
-
-                    )
-                  })
-
-                  }
-
-                </Carousel1> */}
-                <h2 className="section__title mt-4 pt-12">
-                  {packageObject.title}
-                </h2>
-
-                <div
-                  style={{ width: "600px" }}
-                  className="blog__publisher align-items-center gap-4 mb-4"
-                >
-                  <span className=" d-flex align-items-center gap-1 section__description">
-                    <PaidOutlinedIcon style={{ color: "	orange" }} /> Price{" "}
+                <div className="pt-5">
+                  <h5 className="font-inter font-semibold text-md text-left">
+                    How the Package will look like?
+                  </h5>
+                  <p className="font-inter">{packageObject.description}</p>
+                </div>
+                <div className="flex ">
+                  <p className="flex text-xl font-inter font-semibold mt-1 gap-x-2">
+                    <IoPricetagsOutline className="mt-1" />
+                    Price: $
+                  </p>
+                  <span className="font-inter font-bold text-xl mt-1">
                     {packageObject.price}
                   </span>
 
                   <span className=" d-flex align-items-center gap-1 section__description">
-                    <DiscountOutlinedIcon style={{ color: "	orange" }} />{" "}
-                    Available Tickets {packageObject.totalCount}
+                    {packageObject.price}
                   </span>
 
-                  <Container>
-                    <h6 className="ps-10 fw-normal text-blue-900 font-semibold">
-                      <blockquote className="fs-4">Description</blockquote>
-                    </h6>
-                    <p className="text-black-50 text-xs">
-                      {packageObject.description}
-                    </p>
-                  </Container>
+                  <span className=" d-flex align-items-center gap-1 section__description">
+                    Available Tickets {packageObject.totalCount}
+                  </span>
                 </div>
               </div>
-            </Col>
-          )}
-          <Col lg="5" md="5">
-            <div className="recent__post mb-4">
-              <h5 className=" fw-bold">Recent Tickets</h5>
+              <div className="w-full lg:w-2/5 ">
+                <h5 className="font-bold text-center font-inter">
+                  Recent Packages
+                </h5>
+                {packagesData.map((item, index) => (
+                  <Card
+                    key={item.id}
+                    imgSrc={item.images[0].image}
+                    className="mb-5 shadow-sm"
+                  >
+                    <div className="">
+                      <p className="font-semibold text-center text-xl">
+                        {packagesData[index].title}
+                      </p>
+                      <Button
+                        onClick={() => {
+                          setPackageObject(packagesData[index]);
+                          //navigate(`/tickets/${packagesData[index].title}`);
+                        }}
+                        className="shadow-sm  bg-zinc-100  text-zinc-800 hover:bg-zinc-800 hover:text-white transition-colors duration-100  text-sm font-medium text-center rounded-lg bg-primary-700 w-full"
+                      >
+                        View
+                      </Button>
+                    </div>
+                  </Card>
+                ))}
+              </div>
             </div>
-            {packagesData.map((item, index) => (
-              <div className="recent__blog-post mb-4" key={item.id}>
+          </div>
+        )}
+      </div>
+      <div className="flex flex-col items-center justify-center p-5 lg:pb-5">
+        <div className="title">
+          <h2 className="py-5 text-3xl lg:py-10 lg:text-4xl font-bold font-inter text-zinc-800 text-center">
+            Get your slots booked!
+          </h2>
+        </div>
+        <div className=" flex flex-col justify-center gap-y-10 w-full md:w-2/5">
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            validateOnBlur={true}
+            validateOnChange={false}
+            onSubmit={(values, { resetForm }) => {
+              handleCheckout(values);
+              resetForm();
+            }}
+          >
+            <Form className="border-2 bg-white shadow-lg rounded px-4 md:px-8 pt-6 pb-8 mb-4">
+              <InputTextField
+                label="Full Name"
+                name="full_name"
+                type="text"
+                className="mb-4"
+              />
+              <InputTextField
+                label="Number Of Persons"
+                name="total_persons"
+                type="number"
+                className="mb-4"
+              />
+              <InputTextField
+                label="Date of Tour"
+                name="date_of_tour"
+                type="datetime-local"
+                className="mb-4"
+              />
+              <InputTextField
+                label="Pickup Time"
+                name="pickup_time"
+                type="time"
+                className="mb-4"
+              />
+              <InputTextField
+                label="Email"
+                name="user_email"
+                type="email"
+                className="mb-4"
+              />
+              <InputTextField
+                label="Phone"
+                name="user_phone"
+                type="tel"
+                className="mb-4"
+              />
+              <InputTextField
+                label="Pickup Location"
+                name="pickup_location"
+                type="text"
+                className="mb-4"
+              />
+              <div className=" flex justify-center mt-5">
                 <Button
-                  style={{ color: "black" }}
-                  onClick={() => {
-                    navigate(`/tickets/${packagesData[index].title}`);
-                    window.location.reload();
-                  }}
-                  sx={{ mt: 3, ml: 1 }}
+                  type="submit"
+                  className="shadow-sm  lg:w-48 bg-zinc-100  text-zinc-800 hover:bg-zinc-800 hover:text-white transition-colors duration-100  text-sm font-medium text-center rounded-lg bg-primary-700 w-full"
                 >
-                  <div className="recent__blog-item d-flex gap-3">
-                    <img
-                      src={item.images[0].image}
-                      alt=""
-                      className="w-25 rounded-2"
-                    />
-                    <h6>
-                      {/* <Button style={{color:"black"}} onClick={() => {navigate(`/packages/${packagesData[index].title}`)
-                    window.location.reload()
-                    }} sx={{ mt: 3, ml: 1 }}> */}
-                      <p>{packagesData[index].title}</p>
-                      {/* </Button> */}
-                      {/* <Link to={`/packages/${packagesData[index].title}`}>
-                      {packagesData[index].title}
-                    </Link> */}
-                    </h6>
-                  </div>
+                  Proceed
                 </Button>
               </div>
-            ))}
-          </Col>
-          <Col style={{ marginBottom: "100px" }} lg="5" md="5">
-            <div>
-              <ToastContainer />
-            </div>
-            <StyledContactForm>
-              <form ref={form} onSubmit={handleCheckout}>
-                <FormGroup className="contact__form">
-                  <label>Full Name</label>
-                  <input type="text" name="user_name" id="user_name" />
-                </FormGroup>
-                <FormGroup className="contact__form">
-                  <label>Number Of Persons</label>
-                  <input
-                    type="number"
-                    name="total_persons"
-                    id="total_persons"
-                  />
-                </FormGroup>
-                <FormGroup className="contact__form">
-                  <label>Date of Tour</label>
-                  <input
-                    type="datetime-local"
-                    name="date_of_tour"
-                    id="date_of_tour"
-                  />
-                </FormGroup>
-                <FormGroup className="contact__form">
-                  <label>Pickup Time</label>
-                  <input type="time" name="pickup-time" id="pickup-time" />
-                </FormGroup>
-                <FormGroup className="contact__form">
-                  <label>Email</label>
-                  <input type="email" name="user_email" id="user_email" />
-                </FormGroup>
-                <FormGroup className="contact__form">
-                  <label>Phone</label>
-                  <input type="number" name="user_phone" id="user_phone" />
-                </FormGroup>
-                <label>Pickup Location</label>
-                <textarea
-                  name="pickup_location"
-                  rows="5"
-                  id="pickup_location"
-                  placeholder="Pickup Location"
-                  className="textarea"
-                />
-                {/* <PayButton /> */}
-                <input
-                  className=" contact__btn"
-                  type="submit"
-                  value="Checkout"
-                />
-              </form>
-            </StyledContactForm>
-          </Col>
-          {/* <PayButton /> */}
-          {/* <ReactWhatsapp  /> */}
-          <FloatingWhatsApp
-            phoneNumber="+923335568883"
-            chatMessage="Hello World!!!"
-            messageDelay="2"
-            accountName="AQ INNOVATIONS"
-          />
-        </Row>
-      </Container>
-    </section>
+            </Form>
+          </Formik>
+        </div>
+        <FloatingWhatsApp
+          phoneNumber="+97152760013"
+          chatMessage=""
+          messageDelay="1"
+          accountName="Azeem Tourism"
+        />
+      </div>
+    </>
   );
 };
 
 export default PackageDetails;
-
-const StyledContactForm = styled.div`
-  width: 400px;
-
-  form {
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    width: 100%;
-    font-size: 16px;
-
-    input {
-      width: 100%;
-      height: 35px;
-      padding: 7px;
-      outline: none;
-      border-radius: 5px;
-      border: 1px solid rgb(220, 220, 220);
-
-      &:focus {
-        border: 2px solid rgba(0, 206, 158, 1);
-      }
-    }
-
-    textarea {
-      max-width: 100%;
-      min-width: 100%;
-      width: 100%;
-      max-height: 100px;
-      min-height: 100px;
-      padding: 7px;
-      outline: none;
-      border-radius: 5px;
-      border: 1px solid rgb(220, 220, 220);
-
-      &:focus {
-        border: 2px solid rgba(0, 206, 158, 1);
-      }
-    }
-
-    label {
-      margin-top: 1rem;
-    }
-
-    input[type="submit"] {
-      margin-top: 2rem;
-      cursor: pointer;
-      background: rgb(249, 105, 14);
-      color: white;
-      border: none;
-    }
-  }
-`;
