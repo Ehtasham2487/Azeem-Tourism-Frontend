@@ -53,16 +53,16 @@ export default function PackagesCard({ searchTerm }) {
           Holiday Packages
         </h2>
       </div>
-      <div className=" flex lg:justify-center flex-col lg:flex-row space-y-10 lg:space-y-0 lg:space-x-10 p-10 rounded-lg">
+      <div className=" flex flex-wrap lg:justify-center flex-col lg:flex-row space-y-10 lg:space-y-0 lg:space-x-10 p-10 rounded-lg">
         {data.map((destination) => {
           return (
             <Card
-              className="transform hover:scale-110 shadow-lg rounded-lg lg:w-96 border-2  h-auto"
+              className="transform hover:scale-110 shadow-lg rounded-lg lg:w-96 border-2 mt-2  h-auto"
               imgSrc={destination.images[0].image}
             >
               <h5>{destination.title}</h5>
 
-              <p className="text-left font-normal text-zinc-700 text-clip text-sm  overflow-hidden h-20">
+              <p className="text-left font-normal text-zinc-700 text-clip text-sm  overflow-auto h-20">
                 {destination.description}
               </p>
               <div className="info flex justify-between ">

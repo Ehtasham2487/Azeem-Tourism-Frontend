@@ -28,14 +28,14 @@ export default function EditForm({
   setDesc,
   setTitle,
   setAddress,
-  setVideoFileUrl,
-  videoFileUrl,
+  // setVideoFileUrl,
+  // videoFileUrl,
+  // videoFileName,
+  // setVideoFileName,
   setImageFileName,
   imageFileName,
   setImageFileUrl,
   imageFileUrl,
-  setVideoFileName,
-  videoFileName,
   totalCount,
   setTotalCount,
   price,
@@ -45,8 +45,8 @@ export default function EditForm({
   const handleUploadImage = () => {
     let widget = window.cloudinary.createUploadWidget(
       {
-        cloudName: "jscore",
-        uploadPreset: "jbaarpy3",
+        cloudName: "dhhjr3vim",
+        uploadPreset: "nnitbvl3",
       },
       (error, result) => {
         if (!error && result && result.event === "success") {
@@ -60,42 +60,42 @@ export default function EditForm({
     );
     widget.open();
   };
-  const handleUploadVideo = () => {
-    let widget = window.cloudinary.createUploadWidget(
-      {
-        cloudName: "jscore",
-        uploadPreset: "jbaarpy3",
-      },
-      (error, result) => {
-        if (!error && result && result.event === "success") {
-          setVideoFileName((videoFileName) => [
-            ...videoFileName,
-            result.info.original_filename,
-          ]);
-          setVideoFileUrl((videoFileUrl) => [...videoFileUrl, result.info.url]);
-        }
-      },
-    );
-    widget.open();
-  };
+  // const handleUploadVideo = () => {
+  //   let widget = window.cloudinary.createUploadWidget(
+  //     {
+  //       cloudName: "jscore",
+  //       uploadPreset: "jbaarpy3",
+  //     },
+  //     (error, result) => {
+  //       if (!error && result && result.event === "success") {
+  //         setVideoFileName((videoFileName) => [
+  //           ...videoFileName,
+  //           result.info.original_filename,
+  //         ]);
+  //         setVideoFileUrl((videoFileUrl) => [...videoFileUrl, result.info.url]);
+  //       }
+  //     },
+  //   );
+  //   widget.open();
+  // };
   const handleRemoveItemImage = (name, url) => {
     setImageFileName(imageFileName.filter((item) => item !== name));
     setImageFileUrl(imageFileUrl.filter((item) => item !== url));
   };
-  const handleRemoveItemVideo = (name, url) => {
-    setVideoFileName(videoFileName.filter((item) => item !== name));
-    setVideoFileUrl(videoFileUrl.filter((item) => item !== url));
-  };
+  // const handleRemoveItemVideo = (name, url) => {
+  //   setVideoFileName(videoFileName.filter((item) => item !== name));
+  //   setVideoFileUrl(videoFileUrl.filter((item) => item !== url));
+  // };
+  // const useOldVideo = () => {
+  //   packageData.videos.map((item) => {
+  //     setVideoFileName((videoFileName) => [...videoFileName, item.video]);
+  //     setVideoFileUrl((videoFileUrl) => [...videoFileUrl, item.video]);
+  //   });
+  // };
   const useOldImages = () => {
     packageData.images.map((item) => {
       setImageFileName((imageFileName) => [...imageFileName, item.image]);
       setImageFileUrl((imageFileUrl) => [...imageFileUrl, item.image]);
-    });
-  };
-  const useOldVideo = () => {
-    packageData.videos.map((item) => {
-      setVideoFileName((videoFileName) => [...videoFileName, item.video]);
-      setVideoFileUrl((videoFileUrl) => [...videoFileUrl, item.video]);
     });
   };
   return (
@@ -163,7 +163,7 @@ export default function EditForm({
             )}
           </Grid>
         </>
-        <>
+        {/* <>
           <Grid item xs={12} sm={12}>
             <Stack direction="row" alignItems="center" spacing={2}>
               <label htmlFor="icon-button-file">
@@ -223,7 +223,7 @@ export default function EditForm({
               </div>
             )}
           </Grid>
-        </>
+        </> */}
         <Grid item xs={12} sm={6}>
           <TextField
             required
