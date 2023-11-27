@@ -22,14 +22,14 @@ export default function AddressForm({
   setDesc,
   setTitle,
   setAddress,
-  setVideoFileUrl,
-  videoFileUrl,
+  // setVideoFileUrl,
+  // videoFileUrl,
+  // setVideoFileName,
+  // videoFileName,
   setImageFileName,
   imageFileName,
   setImageFileUrl,
   imageFileUrl,
-  setVideoFileName,
-  videoFileName,
   totalCount,
   setTotalCount,
   price,
@@ -38,11 +38,13 @@ export default function AddressForm({
   const handleUploadImage = () => {
     let widget = window.cloudinary.createUploadWidget(
       {
-        cloudName: "jscore",
-        uploadPreset: "jbaarpy3",
+        cloudName: "dhhjr3vim",
+        uploadPreset: "nnitbvl3",
       },
       (error, result) => {
+        console.log("rs", result);
         if (!error && result && result.event === "success") {
+          console.log("ue");
           setImageFileName((imageFileName) => [
             ...imageFileName,
             result.info.original_filename,
@@ -56,8 +58,8 @@ export default function AddressForm({
   const handleUploadVideo = () => {
     let widget = window.cloudinary.createUploadWidget(
       {
-        cloudName: "jscore",
-        uploadPreset: "jbaarpy3",
+        cloudName: "dhhjr3vim",
+        uploadPreset: "nnitbvl3",
       },
       (error, result) => {
         if (!error && result && result.event === "success") {
@@ -75,10 +77,10 @@ export default function AddressForm({
     setImageFileName(imageFileName.filter((item) => item !== name));
     setImageFileUrl(imageFileUrl.filter((item) => item !== url));
   };
-  const handleRemoveItemVideo = (name, url) => {
-    setVideoFileName(videoFileName.filter((item) => item !== name));
-    setVideoFileUrl(videoFileUrl.filter((item) => item !== url));
-  };
+  // const handleRemoveItemVideo = (name, url) => {
+  //   setVideoFileName(videoFileName.filter((item) => item !== name));
+  //   setVideoFileUrl(videoFileUrl.filter((item) => item !== url));
+  // };
   return (
     <React.Fragment>
       <Grid container spacing={3}>
@@ -131,7 +133,7 @@ export default function AddressForm({
             </Stack>
           </Grid>
         </>
-        <>
+        {/* <>
           <Grid item xs={12} sm={12}>
             <Stack direction="row" alignItems="center" spacing={2}>
               <label htmlFor="icon-button-file">
@@ -179,7 +181,7 @@ export default function AddressForm({
               </label>
             </Stack>
           </Grid>
-        </>
+        </> */}
         <Grid item xs={12} sm={6}>
           <TextField
             required

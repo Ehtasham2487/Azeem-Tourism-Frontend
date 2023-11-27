@@ -173,7 +173,7 @@ export default function AdminPackagesCard() {
                 <Tooltip title="Edit">
                   <IconButton
                     onClick={() =>
-                      navigate("/admin/editTicketDetails", {
+                      navigate("/admin/editTourDetails", {
                         state: destination,
                       })
                     }
@@ -181,7 +181,7 @@ export default function AdminPackagesCard() {
                   >
                     <Link
                       to={{
-                        pathname: "/admin/editTicketDetails",
+                        pathname: "/admin/editTourDetails",
                         state: "destination",
                       }}
                       style={{ textDecoration: "none", color: "grey" }}
@@ -203,7 +203,7 @@ export default function AdminPackagesCard() {
                 <Tooltip title="Delete">
                   <IconButton
                     onClick={() => {
-                      removeTickets(destination._id);
+                      removeTour(destination._id);
                     }}
                     aria-label="Delete"
                   >

@@ -11,6 +11,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import AddressForm from "./AddressForm";
 import axios from "axios";
+import Review from "./Review";
 const steps = ["Package Details", "Review Your Package"];
 
 export default function Checkout() {
@@ -35,7 +36,7 @@ export default function Checkout() {
     // if ((/^[ A-Za-z0-9_@./#&+-,]+$/).test(imageFileName) && (/^[ A-Za-z0-9_@./#&+-,]+$/).test(videoFileName) && (/^[ A-Za-z0-9_@./#&+-,]+$/).test(title) && (/^[ A-Za-z0-9_@./#&+-,]*$/).test(desc) && (/^[ A-Za-z0-9_@./#&+-,]*$/).test(address) && (/^[ A-Za-z0-9_@./#&+-,]*$/).test(city) && (/^[ A-Za-z0-9_@./#&+-,]+$/).test(state) && (/^[ A-Za-z0-9_@./#&+-,]+$/).test(zip)&& (/(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/).test(imageFileUrl) && (/(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/).test(videoFileUrl) && (/^[ A-Za-z0-9_@./#&+-,]+$/).test(country) && (/^[ A-Za-z0-9_@./#&+-,]+$/).test(price) ) {
     if (
       imageFileName.length == 0 ||
-      videoFileName.length == 0 ||
+      // videoFileName.length == 0 ||
       title.length == 0 ||
       desc.length == 0 ||
       address.length == 0 ||
@@ -114,12 +115,12 @@ export default function Checkout() {
             setAddress={setAddress}
             setVideoFileUrl={setVideoFileUrl}
             videoFileUrl={videoFileUrl}
+            setVideoFileName={setVideoFileName}
+            videoFileName={videoFileName}
             setImageFileName={setImageFileName}
             imageFileName={imageFileName}
             setImageFileUrl={setImageFileUrl}
             imageFileUrl={imageFileUrl}
-            setVideoFileName={setVideoFileName}
-            videoFileName={videoFileName}
             totalCount={totalCount}
             setTotalCount={setTotalCount}
             price={price}

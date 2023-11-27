@@ -212,7 +212,11 @@ export default function Navbar() {
   };
 
   return (
-    <AppBar position="sticky" sx={{ backgroundColor: "white" }} className="animate-fade-down">
+    <AppBar
+      position="sticky"
+      sx={{ backgroundColor: "white" }}
+      className="animate-fade-down"
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -237,7 +241,9 @@ export default function Navbar() {
                 width={64}
                 height={64}
               />
-              <p className="lg:text-xl font-bold font-inter text-zinc-800 text-center pt-3"></p>
+              <p className="lg:text-xl font-bold font-inter text-zinc-800 text-center pt-3">
+                Azeem Tourism
+              </p>
             </div>
           </Typography>
 
@@ -318,9 +324,9 @@ export default function Navbar() {
                 className="h-8 lg:h-16"
                 alt="Azeen Toursim logo"
               />
-              <p className="lg:text-xl font-bold font-inter text-zinc-800 text-center pt-2">
+              {/* <p className="lg:text-xl font-bold font-inter text-zinc-800 text-center pt-2">
                 Azeem Tourism
-              </p>
+              </p> */}
             </div>
           </Typography>
           <Box
