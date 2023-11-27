@@ -57,7 +57,7 @@ export default function PackagesCard({ searchTerm }) {
         {data.map((destination) => {
           return (
             <Card
-              className="transform hover:scale-110 shadow-lg rounded-lg lg:w-96 border-2 mt-2  h-auto"
+              className="transform hover:scale-110 shadow-lg rounded-lg lg:w-96 border-2  mx-auto  h-auto my-3 lg:my-5"
               imgSrc={destination.images[0].image}
             >
               <h5>{destination.title}</h5>
