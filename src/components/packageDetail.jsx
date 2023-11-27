@@ -279,7 +279,7 @@ const PackageDetails = () => {
           </Formik>
         </div>
         <FloatingWhatsApp
-          phoneNumber="+97152760013"
+          phoneNumber="+971522760013"
           chatMessage=""
           messageDelay="1"
           accountName="Azeem Tourism"
