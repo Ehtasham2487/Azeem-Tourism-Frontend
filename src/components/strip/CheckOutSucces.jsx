@@ -67,7 +67,7 @@ const CheckoutSuccess = () => {
           </a>{" "}
           Or you can 📞 WhatsApp us on{" "}
           <a
-            href="https://api.whatsapp.com/send?phone=97152760013"
+            href="https://api.whatsapp.com/send?phone=971522760013"
             className="text-primary-600 font-normal"
           >
             <strong>+97152760013</strong>
