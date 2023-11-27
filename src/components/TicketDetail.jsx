@@ -159,7 +159,7 @@ const PackageDetails = () => {
                 </div>
                 <div className="pt-5">
                   <h5 className="font-inter font-semibold text-md text-left">
-                    How the Package will look like?
+                    How the tour will look like?
                   </h5>
                   <p className="font-inter">{packageObject.description}</p>
                 </div>

@@ -52,11 +52,11 @@ export default function Tours({ searchTerm }) {
           Tour
         </h2>
       </div>
-      <div className=" flex flex-wrap lg:justify-center flex-col lg:flex-row space-y-10 lg:space-y-0 lg:space-x-10 p-10 rounded-lg">
+      <div className=" flex flex-wrap lg:justify-center space-y-10 flex-col lg:flex-row  lg:space-y-0 lg:space-x-10 p-10 rounded-lg">
         {data.map((destination) => {
           return (
             <Card
-              className="transform hover:scale-110 shadow-lg rounded-lg lg:w-96 border-2 h-auto mt-2"
+              className="transform hover:scale-110 shadow-lg rounded-lg lg:w-96 h-auto border-2  mx-auto my-3 lg:my-5"
               imgSrc={destination.images[0].image}
             >
               <h5>{destination.title}</h5>

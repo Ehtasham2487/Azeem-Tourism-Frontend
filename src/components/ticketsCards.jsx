@@ -56,7 +56,7 @@ const Tickets = ({ searchTerm }) => {
         {data.map((destination) => {
           return (
             <Card
-              className="transform hover:scale-110 shadow-lg rounded-lg lg:w-96 border-2  h-auto mt-2"
+              className="transform hover:scale-110 shadow-lg rounded-lg lg:w-96 border-2  h-auto mx-auto my-3 lg:my-5"
               imgSrc={destination.images[0].image}
             >
               <h5>{destination.title}</h5>
