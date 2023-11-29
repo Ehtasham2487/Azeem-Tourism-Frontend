@@ -13,10 +13,11 @@ const Tickets = ({ searchTerm }) => {
 
   useEffect(() => {
     const URL =
-      "https://smart-travel-b06756646a16.herokuapp.com/api/packages/get";
+      "https://smart-travel-b06756646a16.herokuapp.com/api/tickets/get";
     axios
       .get(URL)
       .then((response) => {
+        
         let filtered = response.data.filter(
           (packages) => packages.active === true,
         );

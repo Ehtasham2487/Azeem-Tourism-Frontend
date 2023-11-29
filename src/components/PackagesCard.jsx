@@ -17,6 +17,7 @@ export default function PackagesCard({ searchTerm }) {
     axios
       .get(URL)
       .then((response) => {
+        console.log(response.data);
         let filtered = response.data.filter(
           (packages) => packages.active === true,
         );
