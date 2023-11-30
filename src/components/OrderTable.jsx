@@ -293,7 +293,7 @@ export default function EnhancedTable() {
   const [orderDetails, setOrderdetails] = useState([]);
   useEffect(() => {
     const URL =
-      "https://smart-travel-b06756646a16.herokuapp.com/api/orders/get";
+      "https://backend.azeemtourism.com/api/orders/get";
     axios
       .get(URL)
       .then((response) => {

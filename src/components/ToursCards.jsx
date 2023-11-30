@@ -12,7 +12,7 @@ export default function Tours({ searchTerm }) {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   useEffect(() => {
-    const URL = "https://smart-travel-b06756646a16.herokuapp.com/api/tours/get";
+    const URL = "https://backend.azeemtourism.com/api/tours/get";
     axios
       .get(URL)
       .then((response) => {

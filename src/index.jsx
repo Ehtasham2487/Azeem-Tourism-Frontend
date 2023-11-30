@@ -7,7 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "remixicon/fonts/remixicon.css";
 import axios from "axios";
 
-axios.defaults.baseURL = "https://smart-travel-b06756646a16.herokuapp.com/api";
+axios.defaults.baseURL = "https://backend.azeemtourism.com/api";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 

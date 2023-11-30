@@ -13,7 +13,7 @@ const Tickets = ({ searchTerm }) => {
 
   useEffect(() => {
     const URL =
-      "https://smart-travel-b06756646a16.herokuapp.com/api/tickets/get";
+      "https://backend.azeemtourism.com/api/tickets/get";
     axios
       .get(URL)
       .then((response) => {

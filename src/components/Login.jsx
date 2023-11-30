@@ -78,7 +78,7 @@ export default function SignInSide() {
     ) {
       const data = { email, password: pass };
       const URL =
-        "https://smart-travel-b06756646a16.herokuapp.com/api/auth/login";
+        "https://backend.azeemtourism.com/api/auth/login";
       axios
         .post(URL, data)
         .then((response) => {
