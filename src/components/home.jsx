@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, { useState, useEffect } from "react";
 import Hero from "./Hero";
 import PackagesCard from "./PackagesCard";
@@ -7,7 +8,6 @@ import Tickets from "./TicketsCards";
 import Tours from "./ToursCards";
 import SearchBar from "./SearchBar";
 import SpinnerGif from "../assets/Spinner.gif";
-
 export default function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);

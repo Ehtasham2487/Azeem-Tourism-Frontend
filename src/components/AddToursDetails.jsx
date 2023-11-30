@@ -85,7 +85,7 @@ export default function Checkout() {
       milestone: [{}],
     };
     const URL =
-      "https://smart-travel-b06756646a16.herokuapp.com/api/tours/create";
+      "https://backend.azeemtourism.com/api/tours/create";
     axios
       .post(URL, data)
       .then((response) => {

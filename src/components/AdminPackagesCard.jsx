@@ -23,7 +23,7 @@ export default function AdminPackagesCard() {
   const navigate = useNavigate();
   useEffect(() => {
     const URL =
-      "https://smart-travel-b06756646a16.herokuapp.com/api/packages/get";
+      "https://backend.azeemtourism.com/api/packages/get";
     axios
       .get(URL)
       .then((response) => {
@@ -38,7 +38,7 @@ export default function AdminPackagesCard() {
       });
   }, [reload]);
   const updateVisibility = async (id) => {
-    const URL = `https://smart-travel-b06756646a16.herokuapp.com/api/packages/update/${id}`;
+    const URL = `https://backend.azeemtourism.com/api/packages/update/${id}`;
     await axios
       .post(URL, {
         active: false,
@@ -51,7 +51,7 @@ export default function AdminPackagesCard() {
       });
   };
   const removePackage = async (id) => {
-    const URL = `https://smart-travel-b06756646a16.herokuapp.com/api/packages/delete/${id}`;
+    const URL = `https://backend.azeemtourism.com/api/packages/delete/${id}`;
     await axios
       .delete(URL)
       .then((response) => {

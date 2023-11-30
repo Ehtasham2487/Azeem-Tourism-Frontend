@@ -25,7 +25,7 @@ const CheckoutSuccess = () => {
       payment: orderDetails.totalpersons * orderDetails.packageObject.price,
     };
     const URL =
-      "https://smart-travel-b06756646a16.herokuapp.com/api/orders/create";
+      "https://backend.azeemtourism.com/api/orders/create";
     axios
       .post(URL, data)
       .then((response) => {
@@ -40,11 +40,11 @@ const CheckoutSuccess = () => {
     };
     let URL = "";
     if (orderDetails.orderType === "package") {
-      URL = `https://smart-travel-b06756646a16.herokuapp.com/api/packages/update/${orderDetails.packageObject._id}`;
+      URL = `https://backend.azeemtourism.com/api/packages/update/${orderDetails.packageObject._id}`;
     } else if (orderDetails.orderType === "ticket") {
-      URL = `https://smart-travel-b06756646a16.herokuapp.com/api/tickets/update/${orderDetails.packageObject._id}`;
+      URL = `https://backend.azeemtourism.com/api/tickets/update/${orderDetails.packageObject._id}`;
     } else if (orderDetails.orderType === "tour") {
-      URL = `https://smart-travel-b06756646a16.herokuapp.com/api/tours/update/${orderDetails.packageObject._id}`;
+      URL = `https://backend.azeemtourism.com/api/tours/update/${orderDetails.packageObject._id}`;
     }
     axios
       .post(URL, data)

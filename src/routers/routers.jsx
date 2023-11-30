@@ -12,6 +12,7 @@ import Tickets from "../components/TicketsCards";
 import Tours from "../components/ToursCards";
 import TicketDetail from "../components/TicketDetail";
 import TourDetail from "../components/TourDetail";
+
 export default function App() {
   return (
     <Routes>

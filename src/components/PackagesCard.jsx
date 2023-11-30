@@ -13,7 +13,7 @@ export default function PackagesCard({ searchTerm }) {
   const navigate = useNavigate();
   useEffect(() => {
     const URL =
-      "https://smart-travel-b06756646a16.herokuapp.com/api/packages/get";
+      "https://backend.azeemtourism.com/api/packages/get";
     axios
       .get(URL)
       .then((response) => {

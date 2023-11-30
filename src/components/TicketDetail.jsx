@@ -21,7 +21,7 @@ const PackageDetails = () => {
 
   useEffect(() => {
     const URL =
-      "https://smart-travel-b06756646a16.herokuapp.com/api/tickets/get";
+      "https://backend.azeemtourism.com/api/tickets/get";
     axios
       .get(URL)
       .then((response) => {
@@ -80,7 +80,7 @@ const PackageDetails = () => {
     } = values;
     axios
       .post(
-        `https://smart-travel-b06756646a16.herokuapp.com/api/payments/intent`,
+        `https://backend.azeemtourism.com/api/payments/intent`,
         {
           packageCharges: packageObject.price * total_persons,
         },
