@@ -68,50 +68,7 @@ export default function AdminPackagesCard() {
         // event.preventDefault();
       });
   };
-  // const data = [
-  //     {
-  //         image: Destination1,
-  //         title: "Singapore",
-  //         subTitle: "Singapore, officialy thr Republic of Singapore, is a",
-  //         cost: "38,800",
-  //         duration: 6,
-  //     },
-  //     {
-  //         image: Destination2,
-  //         title: "Thailand",
-  //         subTitle: "Thailand is a Southeast Asia country. It's known for",
-  //         cost: "54,200",
-  //         duration: 10,
-  //     },
-  //     {
-  //         image: Destination3,
-  //         title: "Paris",
-  //         subTitle: "Paris, France's capital, is a major European city and a",
-  //         cost: "45,500",
-  //         duration: 156,
-  //     },
-  //     {
-  //         image: Destination4,
-  //         title: "New Zealand",
-  //         subTitle: "New Zealand is an island country in the",
-  //         cost: "24,100",
-  //         duration: 178,
-  //     },
-  //     {
-  //         image: Destination5,
-  //         title: "Bora Bora",
-  //         subTitle: "Bora Bora is a small South Pacific island northwest of",
-  //         cost: "95,400",
-  //         duration: 5,
-  //     },
-  //     {
-  //         image: Destination6,
-  //         title: "London",
-  //         subTitle: "London, the capital of England and the United",
-  //         cost: "38,800",
-  //         duration: 550,
-  //     },
-  // ];
+
 
   const packages = [
     "The Weekend Break",
@@ -123,23 +80,6 @@ export default function AdminPackagesCard() {
   const [active, setActive] = useState(1);
   return (
     <Section id="AdminPackagesCard">
-      {/* <div className="title">
-        <h2>In Active Tours</h2>
-      </div> */}
-      {/* <div className="packages">
-        <ul>
-          {packages.map((pkg, index) => {
-            return (
-              <li
-                className={active === index + 1 ? "active" : ""}
-                onClick={() => setActive(index + 1)}
-              >
-                {pkg}
-              </li>
-            );
-          })}
-        </ul>
-      </div> */}
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 mx-5 p-3 bg-white rounded-lg shadow-lg border-2">
         {data.map((destination) => {
           return (
@@ -212,79 +152,6 @@ export default function AdminPackagesCard() {
                 </Tooltip>
               </div>
             </Card>
-            // <Link
-            //   style={{ textDecoration: "none", color: "black" }}
-            //   // to={`/packages/${destination.title}`}
-            //   className="blog__title"
-            // >
-            //   <div className="destination">
-            //     <img src={destination.images[0].image} alt="" />
-            //     <h3>{destination.title}</h3>
-            //     <p
-            //       style={{
-            //         width: "300px",
-            //         height: "100px",
-            //         overflow: "hidden",
-            //       }}
-            //       className="section__description mt-3"
-            //     >
-            //       {destination.description.length > 150
-            //         ? destination.description.substr(0, 150)
-            //         : destination.description}
-            //     </p>
-            //     <div className="info">
-            //       <div className="services">Price</div>
-            //       <h4>{destination.cost}</h4>
-            //     </div>
-            //     <div className="distance">
-            //       <span>Available Ticket</span>
-            //       <span>{destination.totalCount}</span>
-            //     </div>
-
-            //     <CardActions style={{ justifyContent: "space-around" }}>
-            //       <Tooltip title="Edit">
-            //         <IconButton
-            //           onClick={() =>
-            //             navigate("/admin/editTourDetails", {
-            //               state: destination,
-            //             })
-            //           }
-            //           aria-label="Edit"
-            //         >
-            //           <Link
-            //             to={{
-            //               pathname: "/admin/editTourDetails",
-            //               state: "destination",
-            //             }}
-            //             style={{ textDecoration: "none", color: "grey" }}
-            //           >
-            //             <RiEdit2Fill style={{ color: "black" }} />
-            //           </Link>
-            //         </IconButton>
-            //       </Tooltip>
-            //       <Tooltip title="Unhide">
-            //         <IconButton
-            //           onClick={() => {
-            //             updateVisibility(destination._id);
-            //           }}
-            //           aria-label="Unhide"
-            //         >
-            //           <VisibilityIcon style={{ color: "black" }} />
-            //         </IconButton>
-            //       </Tooltip>
-            //       <Tooltip title="Delete">
-            //         <IconButton
-            //           onClick={() => {
-            //             removeTour(destination._id);
-            //           }}
-            //           aria-label="Delete"
-            //         >
-            //           <DeleteForeverIcon style={{ color: "red" }} />
-            //         </IconButton>
-            //       </Tooltip>
-            //     </CardActions>
-            //   </div>
-            // </Link>
           );
         })}
       </div>

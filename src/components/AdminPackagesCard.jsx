@@ -22,8 +22,7 @@ export default function AdminPackagesCard() {
   const [reload, setReload] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
-    const URL =
-      "https://backend.azeemtourism.com/api/packages/get";
+    const URL = "https://backend.azeemtourism.com/api/packages/get";
     axios
       .get(URL)
       .then((response) => {
