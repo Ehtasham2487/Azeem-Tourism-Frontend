@@ -3,5 +3,5 @@ import react from "@vitejs/plugin-react";
 import svgrPlugin from "vite-plugin-svgr";
 
 export default defineConfig({
-  plugins: [react(), svgrPlugin({ icon: true })],
+	plugins: [react(), svgrPlugin({ icon: true })],
 });

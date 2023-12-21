@@ -60,38 +60,12 @@ export default function EditForm({
     );
     widget.open();
   };
-  // const handleUploadVideo = () => {
-  //   let widget = window.cloudinary.createUploadWidget(
-  //     {
-  //       cloudName: "jscore",
-  //       uploadPreset: "jbaarpy3",
-  //     },
-  //     (error, result) => {
-  //       if (!error && result && result.event === "success") {
-  //         setVideoFileName((videoFileName) => [
-  //           ...videoFileName,
-  //           result.info.original_filename,
-  //         ]);
-  //         setVideoFileUrl((videoFileUrl) => [...videoFileUrl, result.info.url]);
-  //       }
-  //     },
-  //   );
-  //   widget.open();
-  // };
+
   const handleRemoveItemImage = (name, url) => {
     setImageFileName(imageFileName.filter((item) => item !== name));
     setImageFileUrl(imageFileUrl.filter((item) => item !== url));
   };
-  // const handleRemoveItemVideo = (name, url) => {
-  //   setVideoFileName(videoFileName.filter((item) => item !== name));
-  //   setVideoFileUrl(videoFileUrl.filter((item) => item !== url));
-  // };
-  // const useOldVideo = () => {
-  //   packageData.videos.map((item) => {
-  //     setVideoFileName((videoFileName) => [...videoFileName, item.video]);
-  //     setVideoFileUrl((videoFileUrl) => [...videoFileUrl, item.video]);
-  //   });
-  // };
+
   const useOldImages = () => {
     packageData.images.map((item) => {
       setImageFileName((imageFileName) => [...imageFileName, item.image]);
@@ -163,67 +137,6 @@ export default function EditForm({
             )}
           </Grid>
         </>
-        {/* <>
-          <Grid item xs={12} sm={12}>
-            <Stack direction="row" alignItems="center" spacing={2}>
-              <label htmlFor="icon-button-file">
-                <IconButton
-                  onClick={() => {
-                    handleUploadVideo();
-                  }}
-                  color="primary"
-                  aria-label="upload picture"
-                  component="span"
-                >
-                  <Button
-                    style={{ width: "350px", backgroundColor: "#27272a" }}
-                    variant="contained"
-                    sx={{ p: 1, bg: "#27272a" }}
-                    endIcon={<CollectionsIcon />}
-                  >
-                    Upload Videos
-                  </Button>
-                </IconButton>
-                {videoFileName.map((item, index) => {
-                  return videoFileName ? (
-                    <div className="flex justify-between ">
-                      <a
-                        className="text-black"
-                        target="_blank"
-                        href={videoFileUrl[index]}
-                        rel="noreferrer"
-                      >
-                        <p>Uploaded Video: {item}</p>
-                      </a>
-                      <div style={{ marginTop: "-8px" }}>
-                        <IconButton
-                          className="text-rose-600"
-                          onClick={() => {
-                            handleRemoveItemVideo(item, videoFileUrl[index]);
-                          }}
-                        >
-                          <DeleteForeverOutlinedIcon style={{ color: "red" }} />
-                        </IconButton>
-                      </div>
-                    </div>
-                  ) : null;
-                })}
-              </label>
-            </Stack>
-            {videoFileName.length !== 0 ? null : (
-              <div style={{ paddingLeft: "9px" }}>
-                <Button
-                  onClick={useOldVideo}
-                  variant="contained"
-                  style={{ marginTop: 8, backgroundColor: "#27272a" }}
-                  endIcon={<CloudUploadOutlinedIcon />}
-                >
-                  Use Old Videos
-                </Button>
-              </div>
-            )}
-          </Grid>
-        </> */}
         <Grid item xs={12} sm={6}>
           <TextField
             required
@@ -367,21 +280,6 @@ export default function EditForm({
             }}
           />
         </Grid>
-        {/* <Grid item xs={12}>
-          <TextField
-            required
-            id="expDate"
-            helperText="Due Date"
-            fullWidth
-            autoComplete="job-exp"
-            variant="standard"
-            type="datetime-local"
-            value={DueDate}
-            onChange={(e) => {
-              setDueDate(e.target.value);
-            }}
-          />
-        </Grid> */}
       </Grid>
     </React.Fragment>
   );

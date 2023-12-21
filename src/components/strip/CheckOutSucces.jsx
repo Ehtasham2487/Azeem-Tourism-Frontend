@@ -24,8 +24,7 @@ const CheckoutSuccess = () => {
       stripeSessionId: orderDetails.stripeSessionId,
       payment: orderDetails.totalpersons * orderDetails.packageObject.price,
     };
-    const URL =
-      "https://backend.azeemtourism.com/api/orders/create";
+    const URL = "https://backend.azeemtourism.com/api/orders/create";
     axios
       .post(URL, data)
       .then((response) => {
