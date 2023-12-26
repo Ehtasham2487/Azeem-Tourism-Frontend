@@ -30,6 +30,7 @@ export default function Checkout() {
   const [videoFileUrl, setVideoFileUrl] = useState([]);
   const [title, setTitle] = useState(packageData.title);
   const [desc, setDesc] = useState(packageData.description);
+  const [region , setRegion] = useState(packageData.region)
   const [address, setAddress] = useState(packageData.address);
   const [city, setCity] = useState(packageData.city);
   const [state, setState] = useState(packageData.state);
@@ -85,6 +86,7 @@ export default function Checkout() {
       images: imagesList,
       videos: videosList,
       totalCount: totalCount,
+      region: region,
       price: price,
       active: true,
     };
@@ -133,6 +135,8 @@ export default function Checkout() {
             price={price}
             setPrice={setPrice}
             packageData={packageData}
+            setRegion={setRegion}
+            region = {region}
           />
         );
       case 1:
@@ -151,6 +155,7 @@ export default function Checkout() {
             imageFileUrl={imageFileUrl}
             price={price}
             totalCount={totalCount}
+            region = {region}
           />
         );
       default:

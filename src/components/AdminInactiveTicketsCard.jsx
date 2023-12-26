@@ -223,7 +223,11 @@ export default function AdminPackagesCard() {
                 <p className="text-justify w-full h-24 overflow-auto font-normal text-zinc-700 text-sm mt-0">
                   {destination.description}
                 </p>
-
+                <div>
+                    <p className="text-justify w-full h-24 overflow-auto font-normal text-zinc-700 text-sm mt-0">
+                      For Region: {''}{destination.region ?  destination.region : null}
+                    </p>
+                </div>
                 <div className=" flex justify-between flex-row">
                   <div>
                     <span className="font-bold text-md">
