@@ -26,6 +26,7 @@ export default function Checkout() {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [zip, setZip] = useState(0);
+  const [region , setRegion] = useState("")
   const [country, setCountry] = useState("");
   const [totalCount, setTotalCount] = useState(0);
   const [price, setPrice] = useState(0);
@@ -78,6 +79,7 @@ export default function Checkout() {
       videos: videosList,
       totalCount: totalCount,
       price: price,
+      region: region,
       active: true,
     };
     const URL = "https://backend.azeemtourism.com/api/tickets/create";
@@ -124,6 +126,8 @@ export default function Checkout() {
             setTotalCount={setTotalCount}
             price={price}
             setPrice={setPrice}
+            setRegion={setRegion}
+            region = {region}
           />
         );
       case 1:
@@ -141,6 +145,7 @@ export default function Checkout() {
             imageFileUrl={imageFileUrl}
             videoFileName={videoFileName}
             price={price}
+            region = {region}
             totalCount={totalCount}
           />
         );
