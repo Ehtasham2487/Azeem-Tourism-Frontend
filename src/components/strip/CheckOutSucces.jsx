@@ -28,7 +28,7 @@ const CheckoutSuccess = () => {
       payment: orderDetails.totalprice,
     };
     setData(data)
-    const URL = "http://localhost:8080/api/orders/create";
+    const URL = "https://backend.azeemtourism.com/api/orders/create";
     axios
       .post(URL, data)
       .then((response) => {
@@ -48,7 +48,7 @@ const CheckoutSuccess = () => {
           payment: response.data.payment 
         };
         setData(data)
-        const url = `http://localhost:8080/api/orders/mail/${response.data.email}`
+        const url = `https://backend.azeemtourism.com/api/orders/mail/${response.data.email}`
         axios
         .post(url)
         .then((response) => {
@@ -69,17 +69,17 @@ const CheckoutSuccess = () => {
     };
     let URL = "";
     if (orderDetails.orderType === "package") {
-      URL = `http://localhost:8080/api/packages/update/${orderDetails.packageObject._id}`;
+      URL = `https://backend.azeemtourism.com/api/packages/update/${orderDetails.packageObject._id}`;
     } else if (orderDetails.orderType === "ticket") {
-      URL = `http://localhost:8080/api/tickets/update/${orderDetails.packageObject._id}`;
+      URL = `https://backend.azeemtourism.com/api/tickets/update/${orderDetails.packageObject._id}`;
     } else if (orderDetails.orderType === "tour") {
-      URL = `http://localhost:8080/api/tours/update/${orderDetails.packageObject._id}`;
+      URL = `https://backend.azeemtourism.com/api/tours/update/${orderDetails.packageObject._id}`;
     }
     else if (orderDetails.orderType === "hotel") {
-      URL = `http://localhost:8080/api/hotels/update/${orderDetails.packageObject._id}`;
+      URL = `https://backend.azeemtourism.com/api/hotels/update/${orderDetails.packageObject._id}`;
     }
     else if (orderDetails.orderType === "visa") {
-      URL = `http://localhost:8080/api/visas/update/${orderDetails.packageObject._id}`;
+      URL = `https://backend.azeemtourism.com/api/visas/update/${orderDetails.packageObject._id}`;
     }
     
     axios

@@ -27,7 +27,7 @@ const PackageDetails = () => {
  
 
   useEffect(() => {
-    const URL = "http://localhost:8080/api/tickets/get";
+    const URL = "https://backend.azeemtourism.com/api/tickets/get";
     axios
       .get(URL)
       .then((response) => {
@@ -136,7 +136,7 @@ const PackageDetails = () => {
       }
     
       axios
-        .post(`http://localhost:8080/api/payments/intent`, {
+        .post(`https://backend.azeemtourism.com/api/payments/intent`, {
           packageCharges: calculatedPrice,
         })
         .then((response) => {

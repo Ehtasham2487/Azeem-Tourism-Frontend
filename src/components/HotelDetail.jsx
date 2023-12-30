@@ -25,7 +25,7 @@ const HotelDetails = () => {
   const [displayedPrice, setDisplayedPrice] = useState();
 
   useEffect(() => {
-    const URL = "http://localhost:8080/api/hotels/get";
+    const URL = "https://backend.azeemtourism.com/api/hotels/get";
     axios
       .get(URL)
       .then((response) => {
@@ -132,7 +132,7 @@ const HotelDetails = () => {
       }
     
       axios
-        .post(`http://localhost:8080/api/payments/intent`, {
+        .post(`https://backend.azeemtourism.com/api/payments/intent`, {
           packageCharges: calculatedPrice,
         })
         .then((response) => {

@@ -28,7 +28,7 @@ const PackageDetails = () => {
   const [selectedMilestone, setSelectedMilestone] = useState(null);
  
   useEffect(() => {
-    const URL = "http://localhost:8080/api/tours/get";
+    const URL = "https://backend.azeemtourism.com/api/tours/get";
     axios
       .get(URL)
       .then((response) => {
@@ -147,7 +147,7 @@ const PackageDetails = () => {
         (calculatedPrice * packageObject.Discount) / 100;
     }
     axios
-    .post(`http://localhost:8080/api/payments/intent`, {
+    .post(`https://backend.azeemtourism.com/api/payments/intent`, {
       packageCharges: calculatedPrice,
     })
     .then((response) => {
