@@ -11,7 +11,7 @@ import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
-import AddressForm from "./AddressForm";
+import AddressForm from "./AddressTourForm";
 import PaymentForm from "./PaymentForm";
 import Review from "./Review";
 import axios from "axios";
@@ -25,17 +25,22 @@ export default function Checkout() {
   const [videoFileUrl, setVideoFileUrl] = useState([]);
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
+  const [isDiscounted,setisDiscounted] = useState(false);
+  const [discount,setDiscount]= useState(0);
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
-  const [region , setRegion] = useState("")
+  const [region , setRegion] = useState("Both")
   const [state, setState] = useState("");
   const [zip, setZip] = useState(0);
   const [country, setCountry] = useState("");
   const [totalCount, setTotalCount] = useState(0);
   const [price, setPrice] = useState(0);
   const [error, seterror] = React.useState("");
+  const [milestones, setMilestones] = useState([{title: "" , image: ""}]);
   const [imagesList, setImagesList] = useState([]);
   const [videosList, setVideosList] = useState([]);
+
+
   const handleNext = () => {
     // if ((/^[ A-Za-z0-9_@./#&+-,]+$/).test(imageFileName) && (/^[ A-Za-z0-9_@./#&+-,]+$/).test(videoFileName) && (/^[ A-Za-z0-9_@./#&+-,]+$/).test(title) && (/^[ A-Za-z0-9_@./#&+-,]*$/).test(desc) && (/^[ A-Za-z0-9_@./#&+-,]*$/).test(address) && (/^[ A-Za-z0-9_@./#&+-,]*$/).test(city) && (/^[ A-Za-z0-9_@./#&+-,]+$/).test(state) && (/^[ A-Za-z0-9_@./#&+-,]+$/).test(zip)&& (/(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/).test(imageFileUrl) && (/(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/).test(videoFileUrl) && (/^[ A-Za-z0-9_@./#&+-,]+$/).test(country) && (/^[ A-Za-z0-9_@./#&+-,]+$/).test(price) ) {
     if (
@@ -82,11 +87,13 @@ export default function Checkout() {
       videos: videosList,
       totalCount: totalCount,
       price: price,
+      isDiscounted:isDiscounted,
+      Discount: discount,
       active: true,
       region: region,
-      milestone: [{}],
+      milestone: milestones,
     };
-    const URL = "https://backend.azeemtourism.com/api/tours/create";
+    const URL = "http://localhost:8080/api/tours/create";
     axios
       .post(URL, data)
       .then((response) => {
@@ -132,6 +139,12 @@ export default function Checkout() {
             setPrice={setPrice}
             setRegion={setRegion}
             region = {region}
+            isDiscounted ={isDiscounted}
+            discount={discount}
+            setisDiscounted={setisDiscounted}
+            setDiscount={setDiscount}
+            milestones={milestones}
+            setMilestones = {setMilestones}
           />
         );
       case 1:
@@ -151,6 +164,7 @@ export default function Checkout() {
             price={price}
             region = {region}
             totalCount={totalCount}
+            discount={discount}
           />
         );
       default:

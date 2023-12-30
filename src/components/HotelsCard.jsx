@@ -13,7 +13,7 @@ export default function PackagesCard({ searchTerm }) {
 	const navigate = useNavigate();
 	useEffect(() => {
 		const region = localStorage.getItem("country")
-		const URL = "https://backend.azeemtourism.com/api/hotels/get";
+		const URL = "http://localhost:8080/api/hotels/get";
 		axios
 			.get(URL)
 			.then((response) => {
@@ -68,20 +68,37 @@ export default function PackagesCard({ searchTerm }) {
 					return (
 						<Card
 							key={_id}
-							className="transform hover:scale-102 shadow-lg rounded-lg lg:w-96 border-2  mx-auto  h-auto my-3 lg:my-5"
+							className="transform hover:scale-102 shadow-lg rounded-lg lg:w-96 border-2  mx-auto  h-auto my-3 lg:my-5 relative"
 							imgSrc={destination.images[0].image}
 						>
+							 {
+								destination?.isDiscounted && (
+									<div className="absolute top-0 right-0 bg-red-500 text-white py-1 px-3 rounded-tl-lg">
+									
+										{destination.Discount}% OFF
+									</div>
+								)
+								}
 							<h5>{destination.name}</h5>
 
 							<p className="text-left font-normal text-zinc-700 text-clip text-sm  overflow-auto h-20">
 								{destination.description}
 							</p>
 							<div className="info flex justify-between ">
-								<div className="flex mt-2">
-								</div>
-								<p className="font-bold text-2xl mt-1 mr-auto">
-									{"$" + destination.price}
-								</p>
+							<div className="flex items-center">
+                  {destination.isDiscounted && (
+                    <p className="text-gray-500 line-through mr-2">
+                      {"$" + destination.price}
+                    </p>
+                  )}
+                  <p className="font-bold text-2xl mt-1 mr-auto">
+                    {"$" +
+                      (destination.isDiscounted
+                        ? destination.price -
+                          (destination.price * destination.Discount) / 100
+                        : destination.price)}
+                  </p>
+                </div>
 
 								<Rating />
 							</div>

@@ -34,6 +34,8 @@ export default function Checkout() {
   const [city, setCity] = useState(packageData.lastName);
   const [state, setState] = useState(packageData.email);
   const [zip, setZip] = useState('');
+  const [isDiscounted,setisDiscounted] = useState(packageData.isDiscounted);
+  const [discount,setDiscount]= useState(packageData.Discount);
   const [country, setCountry] = useState(packageData.phoneNumber);
   const [totalCount, setTotalCount] = useState(packageData.duration);
   const [price, setPrice] = useState(packageData.price);
@@ -82,10 +84,12 @@ export default function Checkout() {
         videos: videosList,
         duration: totalCount,
         region: region,
+        isDiscounted:isDiscounted,
+        Discount: discount,
         price: price,
         active: true,
       };
-    const URL = `https://backend.azeemtourism.com/api/visas/update/${packageData._id}`;
+    const URL = `http://localhost:8080/api/visas/update/${packageData._id}`;
     axios
       .post(URL, data)
       .then((response) => {
@@ -132,6 +136,10 @@ export default function Checkout() {
             packageData={packageData}
             setRegion={setRegion}
             region = {region}
+            isDiscounted ={isDiscounted}
+            discount={discount}
+            setisDiscounted={setisDiscounted}
+            setDiscount={setDiscount}
           />
         );
       case 1:
@@ -151,6 +159,7 @@ export default function Checkout() {
             price={price}
             totalCount={totalCount}
             region = {region}
+            discount = {discount}
           />
         );
       default:
