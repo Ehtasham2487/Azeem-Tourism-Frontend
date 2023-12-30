@@ -36,6 +36,8 @@ export default function Checkout() {
   const [state, setState] = useState(packageData.state);
   const [zip, setZip] = useState(packageData.zip);
   const [country, setCountry] = useState(packageData.country);
+  const [isDiscounted,setisDiscounted] = useState(packageData.isDiscounted);
+  const [discount,setDiscount]= useState(packageData.Discount);
   const [totalCount, setTotalCount] = useState(packageData.totalCount);
   const [price, setPrice] = useState(packageData.price);
   const [error, seterror] = React.useState("");
@@ -88,9 +90,11 @@ export default function Checkout() {
       totalCount: totalCount,
       region: region,
       price: price,
+      isDiscounted:isDiscounted,
+      Discount: discount,
       active: true,
     };
-    const URL = `https://backend.azeemtourism.com/api/packages/update/${packageData._id}`;
+    const URL = `http://localhost:8080/api/packages/update/${packageData._id}`;
     axios
       .post(URL, data)
       .then((response) => {
@@ -137,6 +141,10 @@ export default function Checkout() {
             packageData={packageData}
             setRegion={setRegion}
             region = {region}
+            isDiscounted ={isDiscounted}
+            discount={discount}
+            setisDiscounted={setisDiscounted}
+            setDiscount={setDiscount}
           />
         );
       case 1:
@@ -156,6 +164,7 @@ export default function Checkout() {
             price={price}
             totalCount={totalCount}
             region = {region}
+            discount = {discount}
           />
         );
       default:

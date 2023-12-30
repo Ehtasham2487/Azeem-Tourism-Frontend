@@ -13,11 +13,6 @@ Welcome to the Smart Travel Website, a modern web application that offers a seam
 8. [Contributing](#contributing)
 9. [License](#license)
 
-Add .env file having
-```shell
-  VITE_REACT_APP_EXCHANGE_RATE_API_KEY=YourExchangeRateKey
-```
-
 ## Features
 The Smart Travel Website offers the following features:
 

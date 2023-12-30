@@ -31,7 +31,7 @@ export default function AdminPackagesCard() {
   const [reload, setReload] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
-    const URL = "https://backend.azeemtourism.com/api/visas/get";
+    const URL = "http://localhost:8080/api/visas/get";
     axios
       .get(URL)
       .then((response) => {
@@ -46,7 +46,7 @@ export default function AdminPackagesCard() {
       });
   }, [reload]);
   const updateVisibility = async (id) => {
-    const URL = `https://backend.azeemtourism.com/api/visas/update/${id}`;
+    const URL = `http://localhost:8080/api/visas/update/${id}`;
     await axios
       .post(URL, {
         active: true,
@@ -59,7 +59,7 @@ export default function AdminPackagesCard() {
       });
   };
   const removePackage = async (id) => {
-    const URL = `https://backend.azeemtourism.com/api/visas/delete/${id}`;
+    const URL = `http://localhost:8080/api/visas/delete/${id}`;
     await axios
       .delete(URL)
       .then((response) => {
@@ -84,7 +84,7 @@ export default function AdminPackagesCard() {
         {data.map((destination) => {
           return (
             <>
-              <Card className="shadow-lg rounded-lg lg:w-90 border-2 h-auto w-auto">
+              <Card className="shadow-lg rounded-lg lg:w-90 border-2 h-auto w-auto relative">
                 <div className="icon flex justify-center">
                   <img
                     src={destination.images[0].image}
@@ -95,6 +95,14 @@ export default function AdminPackagesCard() {
                       height: "100%",
                     }}
                   />
+                   {
+								destination?.isDiscounted && (
+									<div className="absolute top-0 right-0 bg-red-500 text-white py-1 px-3 rounded-tl-lg">
+									
+										{destination.Discount}% OFF
+									</div>
+								)
+								}
                 </div>
                 <p className="text-center text-md font-semibold mb-0">
                   {destination.title}
@@ -110,8 +118,22 @@ export default function AdminPackagesCard() {
                     </span>
                     <span className="text-md">{destination.duration} days</span>
                   </div>
-                  <p className="font-bold text-md">{"$" + destination.price}</p>
                 </div>
+                <div className="flex items-center">
+                  {destination.isDiscounted && (
+                    <p className="text-gray-500 line-through mr-2">
+                      {"$" + destination.price}
+                    </p>
+                  )}
+                  <p className="font-bold text-lg mt-1 mr-auto">
+                    {"$" +
+                      (destination.isDiscounted
+                        ? destination.price -
+                          (destination.price * destination.Discount) / 100
+                        : destination.price)}
+                  </p>
+                </div>
+                
                 <p className="text-justify w-full h-24 overflow-auto font-normal text-zinc-700 text-sm mt-0">
                 For Region: {''}{destination.region ?  destination.region : null}
                 </p>

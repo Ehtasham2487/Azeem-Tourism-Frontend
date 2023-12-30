@@ -22,10 +22,12 @@ const PackageDetails = () => {
   const [fromCurrency, setFromCurrency] = useState()
   const [toCurrency, setToCurrency] = useState()
   const [exchangeRate, setExchangeRate] = useState()
-  const [CurrentCurrency, setCurrentCurrency ] = useState()
+  const [currentCurrency, setCurrentCurrency ] = useState()
+  const [displayedPrice, setDisplayedPrice] = useState();
+ 
 
   useEffect(() => {
-    const URL = "https://backend.azeemtourism.com/api/tickets/get";
+    const URL = "http://localhost:8080/api/tickets/get";
     axios
       .get(URL)
       .then((response) => {
@@ -39,11 +41,12 @@ const PackageDetails = () => {
       .catch((error) => {
         console.log(error.message);
       });
+      const countary = localStorage.getItem('country')
 
       axios.get(`http://api.exchangeratesapi.io/v1/latest?access_key=${import.meta.env.VITE_REACT_APP_EXCHANGE_RATE_API_KEY}`)
       .then(response => {
         const baseCurrency = "USD"; 
-        const targetCurrency = "AED";
+        const targetCurrency = countary == 'Pakistan' ? "PKR" : "AED";
         setCurrencyOptions([baseCurrency, ...Object.keys(response.data.rates)]);
         setFromCurrency(baseCurrency);
         setToCurrency(targetCurrency);
@@ -51,17 +54,40 @@ const PackageDetails = () => {
         setExchangeRate(response.data.rates[targetCurrency])
       })
 
-  }, []);
+  }, [slug]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  useEffect(() => {
+    if (packageObject) {
+      const calculatedPrice =
+        packageObject.isDiscounted && packageObject.Discount
+          ? packageObject.price -
+            (packageObject.price * packageObject.Discount) / 100
+          : packageObject.price;
+
+      const formattedPrice =
+        fromCurrency === "USD"
+          ? `$${calculatedPrice.toFixed(2)}`
+          : fromCurrency === "PKR"
+          ? `Rs ${Math.round(
+              (exchangeRate / currentCurrency) * calculatedPrice
+            )}`
+          : `AED ${Math.round(
+              (exchangeRate / currentCurrency) * calculatedPrice
+            )}`;
+
+      setDisplayedPrice(formattedPrice);
+    }
+  }, [packageObject, fromCurrency, exchangeRate, currentCurrency]);
 
   const handleCurrencyToggle = () => {
     setFromCurrency(toCurrency)
     setToCurrency(fromCurrency)
    
   };
+  
 
   const validationSchema = Yup.object({
     full_name: Yup.string()
@@ -100,33 +126,42 @@ const PackageDetails = () => {
       user_phone,
       pickup_location,
     } = values;
-    axios
-      .post(`https://backend.azeemtourism.com/api/payments/intent`, {
-        packageCharges: packageObject.price * total_persons,
-      })
-      .then((response) => {
-        localStorage.setItem(
-          "orderDetails",
-          JSON.stringify({
-            fullname: full_name,
-            email: user_email,
-            phone: user_phone,
-            pickuplocation: pickup_location,
-            totalpersons: total_persons,
-            dateoftour: date_of_tour,
-            pickuptime: pickup_time,
-            totalprice: packageObject.price * total_persons,
-            packageObject: packageObject,
-            stripeSessionId: response.data.sessionID,
-            orderType: "ticket",
-          }),
-        );
-        if (response.data) {
-          window.location.href = response.data.sessionURL;
-        }
-      })
-      .catch((err) => console.log(err.message));
-  };
+    
+      let calculatedPrice = packageObject.price * total_persons;
+    
+      if (packageObject.isDiscounted && packageObject.Discount) {
+        calculatedPrice =
+          calculatedPrice -
+          (calculatedPrice * packageObject.Discount) / 100;
+      }
+    
+      axios
+        .post(`http://localhost:8080/api/payments/intent`, {
+          packageCharges: calculatedPrice,
+        })
+        .then((response) => {
+          localStorage.setItem(
+            "orderDetails",
+            JSON.stringify({
+              fullname: full_name,
+              email: user_email,
+              phone: user_phone,
+              pickuplocation: pickup_location,
+              totalpersons: total_persons,
+              dateoftour: date_of_tour,
+              pickuptime: pickup_time,
+              totalprice: calculatedPrice,
+              packageObject: packageObject,
+              stripeSessionId: response.data.sessionID,
+              orderType: "ticket",
+            })
+          );
+          if (response.data) {
+            window.location.href = response.data.sessionURL;
+          }
+        })
+        .catch((err) => console.log(err.message));
+    };
   const InputTextField = ({ label, ...props }) => {
     const [field, meta] = useField(props);
     return (
@@ -156,7 +191,7 @@ const PackageDetails = () => {
       <div className="flex flex-col lg:flex-row justify-center px-5 lg:px-0">
         {packageObject && (
           <div className="w-full  lg:w-5/6 lg:justify-center  ">
-            <h2 className="py-5 text-2xl lg:py-10 lg:text-3xl font-bold font-inter text-zinc-800 text-center">
+            <h2 className="py-5 text-2xl lg:py-10 lg:text-3xl font-bold font-inter text-zinc-800 text-center  mb-2">
               {packageObject.title}
             </h2>
             <div className="flex flex-col lg:flex-row lg:gap-x-10 justify-center">
@@ -186,15 +221,11 @@ const PackageDetails = () => {
                     Available Tickets {packageObject.totalCount}
                   </div>
                 <div className="flex " style={{display:'flex',flexDirection:'row',justifyContent:'center',marginTop:'3%'}}>
-                <p className="flex text-xl font-inter font-semibold mt-1 gap-x-2">
+                <p className="flex text-xl font-inter font-semibold mt-3 gap-x-2 mr-1">
                     <IoPricetagsOutline className="mt-1" />
-                    Price: {fromCurrency === "USD" ? "$" : "AED: "}
+                    Price: {displayedPrice}
                   </p>
-                  <span className="font-inter font-bold text-xl mt-1">
-                    {fromCurrency === "USD"
-                      ? packageObject.price
-                      : Math.round ((exchangeRate / CurrentCurrency) * packageObject.price,9)}
-                  </span>
+                 
                   <Button
                     className="ml-5 shadow-sm bg-black text-white hover:bg-white hover:text-black transition-colors duration-100 text-xs md:text-sm font-medium text-center rounded-lg "
                     onClick={() => handleCurrencyToggle(fromCurrency)}
@@ -205,14 +236,14 @@ const PackageDetails = () => {
                
               </div>
               <div className="w-full lg:w-2/5 ">
-                <h5 className="font-bold text-center font-inter">
+                <h5 className="font-bold text-center font-inter  mb-2">
                   Recent Packages
                 </h5>
                 {packagesData.map((item, index) => (
                   <Card
                     key={item.id}
                     imgSrc={item.images[0].image}
-                    className="mb-5 shadow-sm"
+                    className="mb-5 shadow-sm border-2 border-lavender"
                   >
                     <div className="">
                       <p className="font-semibold text-center text-xl">
@@ -223,7 +254,7 @@ const PackageDetails = () => {
                           setPackageObject(packagesData[index]);
                           //navigate(`/tickets/${packagesData[index].title}`);
                         }}
-                        className="shadow-sm  bg-zinc-100  text-zinc-800 hover:bg-zinc-800 hover:text-white transition-colors duration-100  text-sm font-medium text-center rounded-lg bg-primary-700 w-full"
+                        className="mt-3 shadow-sm border-2 border-black bg-zinc-100 text-zinc-800 hover:bg-zinc-800 hover:text-white transition-colors duration-100 text-sm font-medium text-center rounded-lg bg-primary-700 w-full"
                       >
                         View
                       </Button>
@@ -298,8 +329,8 @@ const PackageDetails = () => {
               <div className=" flex justify-center mt-5">
                 <Button
                   type="submit"
-                  className="shadow-sm  lg:w-48 bg-zinc-100  text-zinc-800 hover:bg-zinc-800 hover:text-white transition-colors duration-100  text-sm font-medium text-center rounded-lg bg-primary-700 w-full"
-                >
+                  className="mt-3 shadow-sm border-2 border-black bg-zinc-100 text-zinc-800 hover:bg-zinc-800 hover:text-white transition-colors duration-100 text-sm font-medium text-center rounded-lg bg-primary-700 w-full"
+                  >
                   Proceed
                 </Button>
               </div>
