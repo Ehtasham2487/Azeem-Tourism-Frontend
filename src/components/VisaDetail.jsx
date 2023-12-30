@@ -29,7 +29,7 @@ const PackageDetails = () => {
 
 
   useEffect(() => {
-    const URL = "http://localhost:8080/api/visas/get";
+    const URL = "https://backend.azeemtourism.com/api/visas/get";
     axios
       .get(URL)
       .then((response) => {
@@ -140,7 +140,7 @@ const PackageDetails = () => {
       }
     
       axios
-        .post(`http://localhost:8080/api/payments/intent`, {
+        .post(`https://backend.azeemtourism.com/api/payments/intent`, {
           packageCharges: calculatedPrice,
         })
         .then((response) => {

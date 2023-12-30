@@ -94,7 +94,7 @@ export default function Checkout() {
       Discount: discount,
       active: true,
     };
-    const URL = `http://localhost:8080/api/tours/update/${packageData._id}`;
+    const URL = `https://backend.azeemtourism.com/api/tours/update/${packageData._id}`;
     axios
       .post(URL, data)
       .then((response) => {
