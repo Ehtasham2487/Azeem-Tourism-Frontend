@@ -7,6 +7,7 @@ import Lottie from 'react-lottie-player'
 import { Button, Card } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 import { Spinner } from "flowbite-react";
+import { Helmet } from "react-helmet";
 
 export default function Tours({ searchTerm }) {
 	const [data, setData] = useState([]);
@@ -55,6 +56,14 @@ export default function Tours({ searchTerm }) {
 		);
 	}
 	return (
+		<>
+		<Helmet>
+			<meta name="description" content="Simplify your travel with Azeem Tourism's visa services. Get hassle-free visas for your journey to Pakistan and Dubai." />
+			<meta property="og:title" content="Visa Services - Azeem Tourism" />
+			<meta property="og:description" content="Simplify your travel with Azeem Tourism's visa services. Get hassle-free visas for your journey to Pakistan and Dubai." />
+			<meta name="keywords" content="Visa services, Pakistan visa, Dubai visa, hassle-free visas, travel documentation" />
+		</Helmet>
+
 		<div className="animate-fade-down bg-blue-200"  style={{
 			marginTop:'2%',border:1 ,borderRadius:20}}>
 		  <div className="title text-center">
@@ -145,6 +154,7 @@ export default function Tours({ searchTerm }) {
 			}
 		  </div>
 		</div>
+		</>
 	  );
 	  	  
 }

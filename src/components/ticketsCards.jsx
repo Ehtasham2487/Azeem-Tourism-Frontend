@@ -6,6 +6,7 @@ import SpinnerGif from "../assets/Spinner.gif";
 import { useNavigate } from "react-router-dom";
 import { Spinner } from "flowbite-react";
 import Lottie from "react-lottie-player";
+import { Helmet } from "react-helmet";
 const Tickets = ({ searchTerm }) => {
   const [data, setData] = useState([]);
   const [reload, setReload] = useState(false);
@@ -55,6 +56,14 @@ const Tickets = ({ searchTerm }) => {
   }
 
   return (
+    <>
+    <Helmet>
+    <meta name="description" content="Book tickets for top attractions and experiences in Pakistan and Dubai with Azeem Tourism. Visit famous places like Badshahi Mosque and Dubai Museum." />
+    <meta property="og:title" content="Tickets - Azeem Tourism" />
+    <meta property="og:description" content="Book tickets for top attractions and experiences in Pakistan and Dubai with Azeem Tourism. Visit famous places like Badshahi Mosque and Dubai Museum." />
+    <meta name="keywords" content="Attraction tickets, museum tickets, Badshahi Mosque, Dubai Museum, tourist attractions, experience tickets" />
+  </Helmet>
+
     <div className="animate-fade-down bg-lavender" style={{ marginTop:'2%', border:1,borderRadius: 20}} >
       <div className="title text-center">
       <h2 className="py-2 text-3xl lg:py-4 lg:pt-8 lg:text-4xl font-roboto font-bold uppercase  text-zinc-800 text-center">
@@ -150,6 +159,7 @@ const Tickets = ({ searchTerm }) => {
         }
       </div>
     </div>
+    </>
   );
 };
 

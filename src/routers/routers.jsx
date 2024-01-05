@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 const Packages = lazy(() => import("../components/PackagesCard"));
 const Hotels = lazy(() => import("../components/HotelsCard"));
 const About = lazy(() => import("../components/Services"));
-const Home = lazy(() => import("../components/Home"));
+const Home = lazy(() => import("../components/home"));
 const PackagesDetails = lazy(() => import("../components/PackageDetail"));
 const HotelDetails = lazy(() => import("../components/HotelDetail"));
 const Contact = lazy(() => import("../components/Contact"));

@@ -8,6 +8,7 @@ import { Button, Card } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 import { Spinner } from "flowbite-react";
 import bgImage from "../assets/fullbg.jpg";
+import { Helmet } from "react-helmet";
 
 export default function Tours({ searchTerm }) {
 	const [data, setData] = useState([]);
@@ -57,6 +58,13 @@ export default function Tours({ searchTerm }) {
 		);
 	}
 	return (
+		<>
+		<Helmet>
+			<meta name="description" content="Explore iconic destinations in Pakistan and Dubai with Azeem Tourism's guided tours. Visit famous places like Lahore Fort, Burj Khalifa, and more." />
+			<meta property="og:title" content="Tours in Pakistan and Dubai - Azeem Tourism" />
+			<meta property="og:description" content="Explore iconic destinations in Pakistan and Dubai with Azeem Tourism's guided tours. Visit famous places like Lahore Fort, Burj Khalifa, and more." />
+			<meta name="keywords" content="Pakistan tours, Dubai tours, guided tours, Lahore Fort, Burj Khalifa, travel destinations" />
+		</Helmet>
 		<div className="animate-fade-down bg-blue-200"  style={{
 			marginTop:'2%',border:1 ,borderRadius:20}}>
 		  <div className="title text-center">
@@ -138,6 +146,7 @@ export default function Tours({ searchTerm }) {
 			}
 		  </div>
 		</div>
+		</>
 	  );
 	  	  
 }

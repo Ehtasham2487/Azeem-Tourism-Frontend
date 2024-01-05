@@ -6,6 +6,7 @@ import { Button, Card } from "flowbite-react";
 import Lottie from 'react-lottie-player'
 import { useNavigate } from "react-router-dom";
 import SpinnerGif from "../assets/Spinner.gif";
+import { Helmet } from "react-helmet";
 export default function PackagesCard({ searchTerm }) {
 	const [data, setData] = useState([]);
 	const [reload, setReload] = useState(false);
@@ -54,7 +55,17 @@ export default function PackagesCard({ searchTerm }) {
 		);
 	}
 	return (
+		<>
+		<Helmet>
+				<meta name="description" content="Find comfortable accommodations in Pakistan and Dubai with Azeem Tourism's hotel booking services. Stay near famous places like Faisal Mosque and The Dubai Mall." />
+				<meta property="og:title" content="Hotels - Azeem Tourism" />
+				<meta property="og:description" content="Find comfortable accommodations in Pakistan and Dubai with Azeem Tourism's hotel booking services. Stay near famous places like Faisal Mosque and The Dubai Mall." />
+				<meta name="keywords" content="Hotel bookings, Pakistan hotels, Dubai hotels, Faisal Mosque, The Dubai Mall, accommodations" />
+		</Helmet>
 		<div className="animate-fade-down bg-rust" style={{ marginTop:'2%', border:1,borderRadius: 20}}>
+			
+
+
 			<div className="title text-center">
 			<h2 className="py-2 text-3xl lg:py-4 lg:pt-8 lg:text-4xl font-roboto font-bold uppercase  text-zinc-800 text-center">
        			 Hotels
@@ -132,6 +143,7 @@ export default function PackagesCard({ searchTerm }) {
 			}
 			</div>
 		</div>
+		</>
 	);
 }
 

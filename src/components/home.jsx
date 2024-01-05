@@ -4,6 +4,7 @@ import SearchBar from "./SearchBar";
 import CountrySelectionModal from './Modal'; 
 import { Box, Button, Typography } from "@mui/material";
 import PlaceOutlinedIcon from '@mui/icons-material/PlaceOutlined';
+import { Helmet } from "react-helmet";
 
 const Hero = React.lazy(() => import("./Hero"));
 const PackagesCard = React.lazy(() => import("./PackagesCard"));
@@ -38,6 +39,14 @@ export default function App() {
     };
 	return (
 		<div>
+			<Helmet>
+				<title>Azeem Tourism - Explore Dubai and Pakistan</title>
+				<meta name="description" content="Discover the exceptional tours to Pakistan and Dubai with Azeem Tourism. We provide low cost and luxury tours, resorts, tickets, visas, and excursion packages for your perfect journey enjoy." />
+				<meta property="og:title" content="Azeem Tourism - Explore Dubai and Pakistan" />
+				<meta property="og:description" content="Discover the best tours to Pakistan and Dubai with Azeem Tourism. We offer affordable and luxury tours, hotels, tickets, visas, and holiday packages for your perfect travel experience." />
+				<meta name="keywords" content="Azeem Tourism, Pakistan tours, Dubai tours, affordable tours, luxury tours, hotels, tickets, visas, holiday packages" />
+			</Helmet>
+
 			<CountrySelectionModal open={showModal} onSelect={handleCountrySelect} />
 			
 			<Suspense fallback={<div>Loading...</div>}>
